@@ -1,25 +1,13 @@
 fileFormatVersion: 2
-guid: 6377bb9d4a61f0b4297050dc3f5de194
+guid: f1b74e1a7352a6846a9ea289fe10dfc7
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6551622673279944569
-    second: Plague_Dying_Animation_0
+      213: 8470970737572472789
+    second: Plague_dude_walk_v2_copy_0
   - first:
-      213: -2597170786483553873
-    second: Plague_Dying_Animation_1
-  - first:
-      213: -1626580120358520420
-    second: Plague_Dying_Animation_2
-  - first:
-      213: -3464107771789803699
-    second: Plague_Dying_Animation_3
-  - first:
-      213: -1654913962683034028
-    second: Plague_Dying_Animation_4
-  - first:
-      213: -2707437190094317319
-    second: Plague_Dying_Animation_5
+      213: 7997145939676128729
+    second: Plague_dude_walk_v2_copy_1
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -105,13 +93,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Plague_Dying_Animation_0
+      name: Plague_dude_walk_v2_copy_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 93
-        height: 59
+        width: 36
+        height: 61
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -119,20 +107,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 788f0c004e5f315a0800000000000000
-      internalID: -6551622673279944569
+      spriteID: 5d76cb3310fee8570800000000000000
+      internalID: 8470970737572472789
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Plague_Dying_Animation_1
+      name: Plague_dude_walk_v2_copy_1
       rect:
         serializedVersion: 2
-        x: 93
+        x: 36
         y: 0
-        width: 93
-        height: 59
+        width: 36
+        height: 61
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -140,92 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fa930aa1eeef4fbd0800000000000000
-      internalID: -2597170786483553873
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Plague_Dying_Animation_2
-      rect:
-        serializedVersion: 2
-        x: 186
-        y: 0
-        width: 93
-        height: 59
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c99715f9ff93d69e0800000000000000
-      internalID: -1626580120358520420
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Plague_Dying_Animation_3
-      rect:
-        serializedVersion: 2
-        x: 279
-        y: 0
-        width: 93
-        height: 59
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d4f7ccec5540defc0800000000000000
-      internalID: -3464107771789803699
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Plague_Dying_Animation_4
-      rect:
-        serializedVersion: 2
-        x: 372
-        y: 0
-        width: 93
-        height: 59
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4569170e4809809e0800000000000000
-      internalID: -1654913962683034028
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Plague_Dying_Animation_5
-      rect:
-        serializedVersion: 2
-        x: 465
-        y: 0
-        width: 93
-        height: 59
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9f81fb068304d6ad0800000000000000
-      internalID: -2707437190094317319
+      spriteID: 9d56a578cd19bfe60800000000000000
+      internalID: 7997145939676128729
       vertices: []
       indices: 
       edges: []

@@ -1,28 +1,16 @@
 fileFormatVersion: 2
-guid: cf720b09d11307e4fac5a919fd2c32a0
+guid: 35bf478b6485dd34c9e6c91ccbbb8ffa
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2149789327104504338
-    second: LabTileSet_0
+      213: -6271376198600510032
+    second: 2 (sprite sheets)_0
   - first:
-      213: 1936127753763237374
-    second: LabTileSet_1
+      213: 4490428699958044876
+    second: 2 (sprite sheets)_1
   - first:
-      213: 9020373944655275042
-    second: LabTileSet_2
-  - first:
-      213: -7622401423967985058
-    second: LabTileSet_3
-  - first:
-      213: -3699831495588987505
-    second: LabTileSet_4
-  - first:
-      213: -491600795681994116
-    second: LabTileSet_5
-  - first:
-      213: -2425584186348076198
-    second: LabTileSet_6
+      213: -3587675857305718988
+    second: 2 (sprite sheets)_2
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -108,139 +96,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: LabTileSet_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 32
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2127dffb00695dd10800000000000000
-      internalID: 2149789327104504338
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: LabTileSet_1
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 32
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: efd25da1fe18eda10800000000000000
-      internalID: 1936127753763237374
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: LabTileSet_2
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 32
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 224ed588f4ece2d70800000000000000
-      internalID: 9020373944655275042
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: LabTileSet_3
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 16
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e52e4f44a4ac73690800000000000000
-      internalID: -7622401423967985058
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: LabTileSet_4
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 16
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f8dbd987bde87acc0800000000000000
-      internalID: -3699831495588987505
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: LabTileSet_5
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 16
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c7a43125eab7d29f0800000000000000
-      internalID: -491600795681994116
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: LabTileSet_6
+      name: 2 (sprite sheets)_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 16
-        height: 16
+        width: 265
+        height: 136
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -248,8 +110,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a530be7a808965ed0800000000000000
-      internalID: -2425584186348076198
+      spriteID: 0b5b395139897f8a0800000000000000
+      internalID: -6271376198600510032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2 (sprite sheets)_1
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 0
+        width: 265
+        height: 136
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc8e73e7c15315e30800000000000000
+      internalID: 4490428699958044876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2 (sprite sheets)_2
+      rect:
+        serializedVersion: 2
+        x: 530
+        y: 0
+        width: 265
+        height: 136
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43f2c0ce0d3063ec0800000000000000
+      internalID: -3587675857305718988
       vertices: []
       indices: 
       edges: []
