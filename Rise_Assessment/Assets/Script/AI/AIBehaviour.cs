@@ -25,7 +25,7 @@ public class AIBehaviour : MonoBehaviour
 
     public virtual void DoBehaviour()
     {
-
+        GetPositiveCheck(CheckForPlayer()); // if player is found swap behaviour to either attack or move to attack
     }
 
     public Check CheckForPlayer()
@@ -61,13 +61,17 @@ public class AIBehaviour : MonoBehaviour
 
     public void GetPositiveCheck(Check _check) // works with CheckForPlayer() so if player is found, AI knows to change behaviour
     {
-        if (_check != null)
+        if (_check != null) // if check came up with a result
         {
-            if (Vector2.Distance(_check.targetLocation, AI.transform.position) < AI.attackRange) //if within attack range
+            if (Vector2.Distance(_check.targetLocation, AI.transform.position) <= AI.attackRange) //if within attack range
             {
-                AI.AddState(new Attack());
+                AI.NewTopState(new Attack());
             }
-            AI.AddState(new MoveToAttack());
+            AI.NewTopState(new MoveToAttack());
+        }
+        else // if check came up with no results
+        {
+            AI.RemoveState();// go back to idle, then patrol.
         }
     }
 }

@@ -35,8 +35,18 @@ public class AIStateMachine
         AIBehaviours.Add(behaviour);
     }
 
-    public void PopState() //always remove the topstate
+    public void PopState() // always remove the topstate
     {
         if (AIBehaviours.Count > 1) AIBehaviours.RemoveAt(AIBehaviours.Count); // Must always have at least idle in list
+    }
+
+    public void NewTopState(AIBehaviour behaviour)
+    {
+        int count = AIBehaviours.Count;
+        if (count > 1) // makes sure that always at least one state (idle) is in list
+        {
+            PopState();
+        }
+        AddState(behaviour);
     }
 }

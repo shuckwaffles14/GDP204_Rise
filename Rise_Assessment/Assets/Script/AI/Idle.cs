@@ -9,11 +9,12 @@ public class Idle : AIBehaviour
     void Start()
     {
         waitTimer = 2.5f;
+        AI.ChangeAIAnimState(0);
     }
 
     public override void DoBehaviour()
     {
-        GetPositiveCheck(CheckForPlayer()); // if player is found swap behaviour to either attack or move to attack
+        base.DoBehaviour(); // check for player
 
         if (waitTimer <= 0.0f)
         {

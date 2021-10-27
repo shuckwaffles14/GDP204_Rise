@@ -3886,6 +3886,7 @@ GameObject:
   - component: {fileID: 1041959912}
   - component: {fileID: 1041959911}
   - component: {fileID: 1041959910}
+  - component: {fileID: 1041959915}
   m_Layer: 0
   m_Name: EnemyType1
   m_TagString: Untagged
@@ -3912,6 +3913,7 @@ MonoBehaviour:
   eyesLeft: {fileID: 735198440}
   eyesRight: {fileID: 110820416}
   viewDistance: 0
+  attackRange: 0
 --- !u!50 &1041959911
 Rigidbody2D:
   serializedVersion: 4
@@ -4026,6 +4028,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1041959915
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1041959909}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 906ff686eb12422489092d684af03178, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1262771804
 GameObject:
   m_ObjectHideFlags: 0
@@ -8952,6 +8973,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.5746
+      objectReference: {fileID: 0}
+    - target: {fileID: 6410192486664109938, guid: 769a1a34ca3d1f54eb251652be6fb8d7,
+        type: 3}
+      propertyPath: m_FlipX
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6410192486664109942, guid: 769a1a34ca3d1f54eb251652be6fb8d7,
         type: 3}
