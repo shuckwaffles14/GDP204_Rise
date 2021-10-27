@@ -12,21 +12,18 @@ public class Patrol : AIBehaviour
     void Start()
     {
         objSensitivity = AI.GetCheckpointSensitivity();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        target = AI.GetCurrentTarget();
     }
 
     public override void DoBehaviour()
     {
-        target = AI.GetCurrentTarget();
+        GetPositiveCheck(CheckForPlayer()); // if player is found swap behaviour to either attack or move to attack
+
         currentPosition = AI.transform.position;
         if (Vector2.Distance(currentPosition, target) < objSensitivity) // if object is close enough to checkpoint
         {
-            AI.AddState(new Idle());
+            AI.GetNextCheckpoint(); // gets the next checkpoint ready for the next patrol state
+            AI.RemoveState(); // go back to idle
         }
     }
 }

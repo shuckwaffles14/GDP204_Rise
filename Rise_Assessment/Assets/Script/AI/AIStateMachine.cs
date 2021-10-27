@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AIStateMachine : MonoBehaviour
+public class AIStateMachine
 {
     private List<AIBehaviour> AIBehaviours;
 
     public AIStateMachine(AIController _AI)
     {
-        AIBehaviours.Add(new Patrol());
+        AIBehaviours.Add(new Idle()); //Idle is base state
         AIBehaviours[0].AI = _AI;
     }
 
@@ -37,6 +37,6 @@ public class AIStateMachine : MonoBehaviour
 
     public void PopState() //always remove the topstate
     {
-        if (AIBehaviours.Count > 1) AIBehaviours.RemoveAt(AIBehaviours.Count); // Must always have at least patrol in list
+        if (AIBehaviours.Count > 1) AIBehaviours.RemoveAt(AIBehaviours.Count); // Must always have at least idle in list
     }
 }

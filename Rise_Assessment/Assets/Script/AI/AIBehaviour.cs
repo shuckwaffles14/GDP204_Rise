@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class AIBehaviour : MonoBehaviour
 {
+    public class Check
+    {
+        public bool playerSighted;
+        public Vector2 targetLocation;
+    }
+
     public AIController AI;
     // Start is called before the first frame update
     void Start()
@@ -22,9 +28,10 @@ public class AIBehaviour : MonoBehaviour
 
     }
 
-    public void CheckForPlayer()
+    public Check CheckForPlayer()
     {
         RaycastHit2D hit;
+        Check thisCheck = new Check();
         float vd = AI.GetViewDistance();
 
         if (AI.GetDirection()) // if AI looking right
@@ -34,15 +41,33 @@ public class AIBehaviour : MonoBehaviour
         }
         else // if AI looking left
         {
-            hit = Physics2D.Raycast(AI.eyesRight.transform.position, Vector2.left, vd);
+            hit = Physics2D.Raycast(AI.eyesLeft.transform.position, Vector2.left, vd);
         }
 
         if (hit.collider != null)
         {
             if (hit.collider.CompareTag("Player"))
             {
-                //do stuff
+                thisCheck.playerSighted = true;
+                thisCheck.targetLocation.x = hit.transform.position.x;
+                thisCheck.targetLocation.y = hit.transform.position.y;
+                AI.UpdateTarget(thisCheck.targetLocation);
+                return thisCheck;
             }
+        }
+
+        return null;
+    }
+
+    public void GetPositiveCheck(Check _check) // works with CheckForPlayer() so if player is found, AI knows to change behaviour
+    {
+        if (_check != null)
+        {
+            if (Vector2.Distance(_check.targetLocation, AI.transform.position) < AI.attackRange) //if within attack range
+            {
+                AI.AddState(new Attack());
+            }
+            AI.AddState(new MoveToAttack());
         }
     }
 }

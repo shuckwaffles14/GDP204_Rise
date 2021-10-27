@@ -11,17 +11,14 @@ public class Idle : AIBehaviour
         waitTimer = 2.5f;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public override void DoBehaviour()
     {
+        GetPositiveCheck(CheckForPlayer()); // if player is found swap behaviour to either attack or move to attack
+
         if (waitTimer <= 0.0f)
         {
-            AI.RemoveState(); // Removes Idle to go back to patrol
+            waitTimer = 2.5f;
+            AI.AddState(new Patrol()); // Adds a patrol state if no player found
         }
         waitTimer -= Time.deltaTime;
     }

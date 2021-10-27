@@ -8,6 +8,7 @@ public class AIController : MonoBehaviour
     private Vector2 currentTarget;
     private AIStateMachine stateMachine;
     private bool direction; // false = left, true = right
+    private int currentCheckpoint;
 
     [Header("AI movement stuff")]
     [SerializeField]
@@ -24,7 +25,8 @@ public class AIController : MonoBehaviour
     public GameObject eyesRight;
     [SerializeField]
     float viewDistance;
-    
+    [SerializeField]
+    public float attackRange;
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +38,9 @@ public class AIController : MonoBehaviour
         }
         rb2d = GetComponent<Rigidbody2D>();
         stateMachine = new AIStateMachine(this);
+        currentCheckpoint = 0;
+        currentTarget.x = checkpoints[currentCheckpoint].transform.position.x;
+        currentTarget.y = checkpoints[currentCheckpoint].transform.position.y;
     }
 
     // Update is called once per frame
@@ -72,5 +77,24 @@ public class AIController : MonoBehaviour
     public float GetViewDistance()
     {
         return viewDistance;
+    }
+
+    public void GetNextCheckpoint()
+    {
+        currentCheckpoint++;
+        int cpSize = checkpoints.Length;
+        if (currentCheckpoint + 1 >= cpSize)
+        {
+            // reset the checkpoint to the first in list
+            currentCheckpoint = 0;
+        }
+
+        currentTarget.x = checkpoints[currentCheckpoint].transform.position.x;
+        currentTarget.y = checkpoints[currentCheckpoint].transform.position.y;
+    }
+
+    public void UpdateTarget(Vector2 newTarget)
+    {
+        currentTarget = newTarget;
     }
 }
