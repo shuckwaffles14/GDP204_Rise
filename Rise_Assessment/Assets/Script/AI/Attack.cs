@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class Attack : AIBehaviour
 {
+    //private AIController ourAI; // reference to the AI the owns the behaviour
     float attackTimer; // how long the attack actually lasts
 
-    // Start is called before the first frame update
-    void Start()
+    public override void Setup(AIController _AIController)
     {
+        AI = _AIController;
         AI.ChangeAIAnimState(2);
         attackTimer = 0.25f;
     }
@@ -19,5 +20,6 @@ public class Attack : AIBehaviour
         {
             AI.NewTopState(new AttackIdle());
         }
+        attackTimer -= Time.deltaTime;
     }
 }

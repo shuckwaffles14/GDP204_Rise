@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class AttackIdle : AIBehaviour
 {
+    //private AIController ourAI; // reference to the AI the owns the behaviour
+
     public float waitTimer;
-    // Start is called before the first frame update
-    void Start()
+
+    public override void Setup(AIController _AIController)
     {
         waitTimer = 0.2f;
+        AI = _AIController;
         AI.ChangeAIAnimState(0);
     }
 

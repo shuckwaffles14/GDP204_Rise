@@ -2,48 +2,53 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AIStateMachine
+public class AIStateMachine : MonoBehaviour
 {
-    private List<AIBehaviour> AIBehaviours;
-
-    public AIStateMachine(AIController _AI)
-    {
-        AIBehaviours.Add(new Idle()); //Idle is base state
-        AIBehaviours[0].AI = _AI;
-    }
+    static private Stack<AIBehaviour> AIBehaviours;
+    private int behaviourCount;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        AIBehaviours = new Stack<AIBehaviour>();
+        AddState(new Idle()); //Idle is base state
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        DoWork();
     }
 
     public void DoWork()
     {
-        int count = AIBehaviours.Count;
-        AIBehaviours[count - 1].DoBehaviour();
+        //AIBehaviours[behaviourCount - 1].DoBehaviour();
+        AIBehaviours.Peek().DoBehaviour();
     }
 
     public void AddState(AIBehaviour behaviour)
     {
-        AIBehaviours.Add(behaviour);
+        AIBehaviours.Push(behaviour);
+        behaviourCount = AIBehaviours.Count;
+        AIBehaviours.Peek().Setup(GetComponent<AIController>());
     }
 
     public void PopState() // always remove the topstate
     {
-        if (AIBehaviours.Count > 1) AIBehaviours.RemoveAt(AIBehaviours.Count); // Must always have at least idle in list
+        if (behaviourCount > 1)
+        {
+            AIBehaviours.Pop(); // Must always have at least idle in list
+            behaviourCount = AIBehaviours.Count;
+            if (behaviourCount == 1)
+            {
+                AIBehaviours.Peek().ResetTimer(); // We can reset here because we know it is the idle state
+            }
+        }
     }
 
     public void NewTopState(AIBehaviour behaviour)
     {
-        int count = AIBehaviours.Count;
-        if (count > 1) // makes sure that always at least one state (idle) is in list
+        if (behaviourCount > 1) // makes sure that always at least one state (idle) is in list
         {
             PopState();
         }

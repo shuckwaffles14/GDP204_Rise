@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AIBehaviour : MonoBehaviour
+public class AIBehaviour
 {
     public class Check
     {
@@ -11,16 +11,10 @@ public class AIBehaviour : MonoBehaviour
     }
 
     public AIController AI;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    public virtual void Setup(AIController _AIController)
     {
-        
+        // do nothing in this level
     }
 
     public virtual void DoBehaviour()
@@ -28,31 +22,44 @@ public class AIBehaviour : MonoBehaviour
         GetPositiveCheck(CheckForPlayer()); // if player is found swap behaviour to either attack or move to attack
     }
 
+    public virtual void ResetTimer()
+    {
+        // do nothing at this level
+    }
+
     public Check CheckForPlayer()
     {
         RaycastHit2D hit;
         Check thisCheck = new Check();
         float vd = AI.GetViewDistance();
+        bool dir = AI.GetDirection();
 
-        if (AI.GetDirection()) // if AI looking right
+        for (int iterator = 0; iterator < 5; iterator++)
         {
-            //will keep it simple for now with single raycast forward, will update later to have a cone of vision
-            hit = Physics2D.Raycast(AI.eyesRight.transform.position, Vector2.right, vd);
-        }
-        else // if AI looking left
-        {
-            hit = Physics2D.Raycast(AI.eyesLeft.transform.position, Vector2.left, vd);
-        }
-
-        if (hit.collider != null)
-        {
-            if (hit.collider.CompareTag("Player"))
+            if (dir) // if AI looking right
             {
-                thisCheck.playerSighted = true;
-                thisCheck.targetLocation.x = hit.transform.position.x;
-                thisCheck.targetLocation.y = hit.transform.position.y;
-                AI.UpdateTarget(thisCheck.targetLocation);
-                return thisCheck;
+                Vector2 rayDir = Vector2.right;
+                rayDir.y += GetRays(iterator);
+                //will keep it simple for now with single raycast forward, will update later to have a cone of vision
+                hit = Physics2D.Raycast(AI.eyesRight.transform.position, rayDir, vd);
+            }
+            else // if AI looking left
+            {
+                Vector2 rayDir = Vector2.left;
+                rayDir.y += GetRays(iterator);
+                hit = Physics2D.Raycast(AI.eyesLeft.transform.position, rayDir, vd);
+            }
+
+            if (hit.collider != null)
+            {
+                if (hit.collider.CompareTag("Player"))
+                {
+                    thisCheck.playerSighted = true;
+                    thisCheck.targetLocation.x = hit.transform.position.x;
+                    thisCheck.targetLocation.y = hit.transform.position.y;
+                    AI.UpdateTarget(thisCheck.targetLocation);
+                    return thisCheck;
+                }
             }
         }
 
@@ -69,9 +76,31 @@ public class AIBehaviour : MonoBehaviour
             }
             AI.NewTopState(new MoveToAttack());
         }
-        else // if check came up with no results
+    }
+
+    float GetRays(int _iterator)
+    {
+        if (_iterator == 0)
         {
-            AI.RemoveState();// go back to idle, then patrol.
+            return 1f;
         }
+        else if (_iterator == 1)
+        {
+            return 0.5f;
+        }
+        else if (_iterator == 2)
+        {
+            return 0f;
+        }
+        else if (_iterator == 3)
+        {
+            return -0.5f;
+        }
+        else if (_iterator == 4)
+        {
+            return -1f;
+        }
+
+        return 0f;
     }
 }

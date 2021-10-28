@@ -226,7 +226,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 110820416}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11.6, y: 6, z: -7.47503}
+  m_LocalPosition: {x: 11.6, y: 6, z: 0}
   m_LocalScale: {x: 14.285715, y: 14.285715, z: 1}
   m_Children: []
   m_Father: {fileID: 1041959914}
@@ -364,9 +364,9 @@ GameObject:
   - component: {fileID: 193257195}
   - component: {fileID: 193257194}
   - component: {fileID: 193257193}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Lab Collisions
-  m_TagString: Untagged
+  m_TagString: Collisions
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3439,6 +3439,50 @@ Transform:
   m_Father: {fileID: 1927857330}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &515238127
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 515238128}
+  - component: {fileID: 515238129}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &515238128
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 515238127}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &515238129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 515238127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88a9cb99d37bdf44488694555acbfb56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireball: {fileID: 0}
 --- !u!1 &551684066
 GameObject:
   m_ObjectHideFlags: 0
@@ -3979,14 +4023,15 @@ GameObject:
   - component: {fileID: 1041959912}
   - component: {fileID: 1041959911}
   - component: {fileID: 1041959910}
+  - component: {fileID: 1041959916}
   - component: {fileID: 1041959915}
   m_Layer: 0
   m_Name: EnemyType1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1041959910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3999,14 +4044,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 913a1f20776ada44aa81d6e0ce62b7eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sr: {fileID: 1041959913}
+  animator: {fileID: 1041959915}
+  stateMachine: {fileID: 1041959916}
   useEditorVariables: 0
-  movementSpeed: 0
-  checkpointSensitivity: 0
-  checkpoints: []
+  movementSpeed: 2.5
+  checkpointSensitivity: 0.5
+  checkpoints:
+  - {fileID: 927294176}
+  - {fileID: 551684066}
   eyesLeft: {fileID: 735198440}
   eyesRight: {fileID: 110820416}
-  viewDistance: 0
-  attackRange: 0
+  viewDistance: 10
+  attackRange: 0.5
+  attackDamage: 0
 --- !u!50 &1041959911
 Rigidbody2D:
   serializedVersion: 4
@@ -4027,7 +4078,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &1041959912
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4113,7 +4164,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1041959909}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 22.87, y: 0, z: 0}
   m_LocalScale: {x: 0.07, y: 0.07, z: 1}
   m_Children:
   - {fileID: 735198441}
@@ -4140,6 +4191,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1041959916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1041959909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faf4081261946354e8cc12243d0d6733, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1262771804
 GameObject:
   m_ObjectHideFlags: 0
@@ -4152,9 +4215,9 @@ GameObject:
   - component: {fileID: 1262771807}
   - component: {fileID: 1262771806}
   - component: {fileID: 1262771808}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cave Collisions
-  m_TagString: Untagged
+  m_TagString: Collisions
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9806,7 +9869,7 @@ PrefabInstance:
     - target: {fileID: 6410192486664109937, guid: 769a1a34ca3d1f54eb251652be6fb8d7,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.3701172
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6410192486664109937, guid: 769a1a34ca3d1f54eb251652be6fb8d7,
         type: 3}
@@ -9887,6 +9950,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6410192487158250629, guid: 769a1a34ca3d1f54eb251652be6fb8d7,
+        type: 3}
+      propertyPath: m_Name
+      value: OrbShooterLeft
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 769a1a34ca3d1f54eb251652be6fb8d7, type: 3}

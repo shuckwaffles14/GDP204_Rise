@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class MoveToAttack : AIBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    //private AIController ourAI; // reference to the AI the owns the behaviour
+
+    public override void Setup(AIController _AIController)
     {
+        AI = _AIController;
         AI.ChangeAIAnimState(1);
     }
 

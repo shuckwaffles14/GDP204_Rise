@@ -6,11 +6,13 @@ public class AIController : MonoBehaviour
 {
     private Rigidbody2D rb2d;
     private Vector2 currentTarget;
-    private AIStateMachine stateMachine;
     private bool direction; // false = left, true = right
     private int currentCheckpoint;
-    private Animator animator;
-    private SpriteRenderer sr;
+    private float health;
+
+    public SpriteRenderer sr;
+    public Animator animator;
+    public AIStateMachine stateMachine;
 
     private enum AIAnimState
     {
@@ -39,51 +41,44 @@ public class AIController : MonoBehaviour
     float viewDistance;
     [SerializeField]
     public float attackRange;
+    [SerializeField]
+    float attackDamage;
 
     // Start is called before the first frame update
     void Start()
     {
         if(!useEditorVariables)
         {
-            movementSpeed = 1.0f;
-            checkpointSensitivity = 0.1f;
+            movementSpeed = 2.5f;
+            checkpointSensitivity = 0.5f;
         }
         rb2d = GetComponent<Rigidbody2D>();
-        stateMachine = new AIStateMachine(this);
+        //stateMachine = new AIStateMachine(this);
         currentCheckpoint = 0;
         currentTarget.x = checkpoints[currentCheckpoint].transform.position.x;
         currentTarget.y = checkpoints[currentCheckpoint].transform.position.y;
         aiAS = AIAnimState.Idle;
-        animator = GetComponent<Animator>();
-        sr = GetComponent<SpriteRenderer>();
+        //animator = GetComponent<Animator>();
+        //sr = GetComponent<SpriteRenderer>();
+        health = 100.0f;
     }
 
     // Update is called once per frame
     void Update()
     {
+        Debug.DrawRay(transform.position, Vector2.left, Color.yellow, checkpointSensitivity);
         Animator();
         if (direction) sr.flipX = true; // facing/moving right
         else sr.flipX = false; // facing/moving left
-        stateMachine.DoWork();
+        //stateMachine.DoWork();
     }
 
     void Animator()
     {
-        switch (aiAS)
-        {
-            case AIAnimState.Idle:
-                animator.SetInteger("AnimationState", 0);
-                break;
-            case AIAnimState.Walking:
-                animator.SetInteger("AnimationState", 1);
-                break;
-            case AIAnimState.Attacking:
-                animator.SetInteger("AnimationState", 2);
-                break;
-            case AIAnimState.Death:
-                animator.SetInteger("AnimationState", 3);
-                break;
-        }    
+        if (aiAS == AIAnimState.Idle) animator.SetInteger("AnimationState", 0);
+        else if (aiAS == AIAnimState.Walking) animator.SetInteger("AnimationState", 1);
+        else if (aiAS == AIAnimState.Attacking) animator.SetInteger("AnimationState", 2);
+        else if (aiAS == AIAnimState.Death) animator.SetInteger("AnimationState", 3);
     }
 
     public Vector2 GetCurrentTarget()
@@ -123,9 +118,10 @@ public class AIController : MonoBehaviour
 
     public void GetNextCheckpoint()
     {
+        Debug.Log("Get Next Checkpoint");
         currentCheckpoint++;
         int cpSize = checkpoints.Length;
-        if (currentCheckpoint + 1 >= cpSize)
+        if (currentCheckpoint == cpSize )
         {
             // reset the checkpoint to the first in list
             currentCheckpoint = 0;
@@ -164,11 +160,25 @@ public class AIController : MonoBehaviour
         direction = _direction;
         if (direction) // moving right
         {
-            rb2d.velocity = new Vector2((1 * movementSpeed), rb2d.velocity.y);
+            rb2d.velocity = Vector2.right * movementSpeed;
+            //transform.position += (Vector3.right * movementSpeed) * Time.fixedDeltaTime;
+            Debug.Log("AI move right");
         }
         else // moving left
         {
-            rb2d.velocity = new Vector2((-1 * movementSpeed), rb2d.velocity.y);
+            rb2d.velocity = Vector2.left * movementSpeed;
+            //transform.position += (Vector3.left * movementSpeed) * Time.fixedDeltaTime;
+            Debug.Log("AI move left");
         }
+    }
+
+    public void DoDamage(float damage)
+    {
+        health -= damage;
+    }
+
+    public float GetAttackDamage()
+    {
+        return attackDamage;
     }
 }

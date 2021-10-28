@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 11
+  m_SortingOrder: 50
   m_Sprite: {fileID: 7399487408792125389, guid: b62e3ce171860db4787803e8661ecf57,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -97,8 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c241e7317ab7034da03e394a573a1b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireballSpeed: 1
-  fireballRange: 0
+  fireballSpeed: 0.5
+  fireballRange: 15
   player: {fileID: 6410192486664109948, guid: 769a1a34ca3d1f54eb251652be6fb8d7, type: 3}
 --- !u!58 &723732597480644988
 CircleCollider2D:

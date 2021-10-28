@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     Transform t;
     Vector3 cameraPos;
     private Animator animator;
-    Vector2 targetLocation;
+    static Vector2 targetLocation;
 
     [Header("Camera")]
     [SerializeField]
@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Player movement stats (If setting in Unity Editor, comment out code in Start() in VS!)")]
     [SerializeField]
-    float health;
+    static float health;
     [SerializeField]
     float walkSpeed;
     [SerializeField]
@@ -52,6 +52,8 @@ public class PlayerController : MonoBehaviour
     public GameObject fireball;
     [SerializeField]
     float attackCooldown;
+    [SerializeField]
+    static float fireballDamage;
 
     // Start is called before the first frame update
     void Start()
@@ -69,7 +71,7 @@ public class PlayerController : MonoBehaviour
         onGround = false;
         fallMultiplier = 2.5f;
         lowJumpMultiplier = 2f;
-        checkerRadius = 0.01f;
+        checkerRadius = 0.1f;
         animator = GetComponent<Animator>();
         attackCooldown = 0.1f;
 
@@ -122,6 +124,7 @@ public class PlayerController : MonoBehaviour
     {
         if (onGround)
         {
+            Debug.Log("On Ground");
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 rb2d.velocity = new Vector2(rb2d.velocity.x, jumpHeight);
@@ -168,9 +171,14 @@ public class PlayerController : MonoBehaviour
         // Doors
     }
 
-    void DoDamage(float damage)
+    public static void DoDamage(float damage)
     {
         health -= damage;
+    }
+
+    public static void AddHealth(float healthRefil)
+    {
+        health += healthRefil;
     }
 
     void HealthCheck()
@@ -186,7 +194,12 @@ public class PlayerController : MonoBehaviour
         /*if (attackCooldown < 0)*/ attackCooldown -= Time.deltaTime;
         if (Input.GetKey(KeyCode.T) && attackCooldown <= 0f)
         {
-            Instantiate(fireball, orbShooterObj);
+            GameObject clone;
+            clone = Instantiate(fireball, orbShooterObj);
+            GetTarget(clone.GetComponent<FireballController>().fireballRange);
+            clone.GetComponent<Rigidbody2D>().velocity = targetLocation * clone.GetComponent<FireballController>().fireballSpeed;
+            Debug.DrawRay(orbShooterObj.position, targetLocation, Color.yellow, 2f);
+            Destroy(clone, 2.5f);
             Debug.Log("Fireball!");
             animator.SetBool("Attacking", true);
             attackCooldown = 0.19f;
@@ -197,6 +210,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void GetTarget(float range)
+    {
+        Vector2 myPos = t.position;
+        targetLocation = (Vector2.left) * range;
+    }
+
     public Vector2 FireballTarget()
     {
         return targetLocation;
@@ -205,5 +224,10 @@ public class PlayerController : MonoBehaviour
     public bool FireballDirection()
     {
         return facingRight;
+    }
+
+    public float GetFireballDamage()
+    {
+        return fireballDamage;
     }
 }
