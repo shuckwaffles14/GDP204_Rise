@@ -3341,6 +3341,15 @@ Tilemap:
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
       m_AllTileFlags: 1073741825
+  - first: {x: -28, y: 4, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 0
+      m_TileSpriteIndex: 0
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      m_AllTileFlags: 1073741825
   - first: {x: 10, y: 4, z: 0}
     second:
       serializedVersion: 2
@@ -5395,7 +5404,7 @@ Tilemap:
       m_AllTileFlags: 1073741825
   m_AnimatedTiles: {}
   m_TileAssetArray:
-  - m_RefCount: 475
+  - m_RefCount: 476
     m_Data: {fileID: 11400000, guid: 266d9f2fef837ff4bb729bd2db1dba4b, type: 2}
   - m_RefCount: 38
     m_Data: {fileID: 11400000, guid: d2eae435fb5431f46b275a4c5296a2d0, type: 2}
@@ -5436,7 +5445,7 @@ Tilemap:
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: de9b82279760ea24cba2c395af803731, type: 2}
   m_TileSpriteArray:
-  - m_RefCount: 475
+  - m_RefCount: 476
     m_Data: {fileID: -1298241951855986903, guid: f0988224927567d4b911bc3c0873a44c,
       type: 3}
   - m_RefCount: 38
@@ -5497,7 +5506,7 @@ Tilemap:
     m_Data: {fileID: -8703210668219372493, guid: f0988224927567d4b911bc3c0873a44c,
       type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 562
+  - m_RefCount: 563
     m_Data:
       e00: 1
       e01: 0
@@ -5516,7 +5525,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 562
+  - m_RefCount: 563
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -5553,6 +5562,7 @@ GameObject:
   - component: {fileID: 1456595107}
   - component: {fileID: 1456595109}
   - component: {fileID: 1456595108}
+  - component: {fileID: 1456595110}
   m_Layer: 0
   m_Name: Cave Collision
   m_TagString: Untagged
@@ -6698,6 +6708,22 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!19719996 &1456595110
+TilemapCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1456595106}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_MaximumTileChangeCount: 1000
+  m_ExtrusionFactor: 0.00001
 --- !u!1 &1741376843
 GameObject:
   m_ObjectHideFlags: 0
