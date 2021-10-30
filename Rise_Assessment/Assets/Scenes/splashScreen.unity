@@ -284,7 +284,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   splashImage: {fileID: 1684849010}
-  loadLevel: mainMenu
 --- !u!1 &1659758082
 GameObject:
   m_ObjectHideFlags: 0

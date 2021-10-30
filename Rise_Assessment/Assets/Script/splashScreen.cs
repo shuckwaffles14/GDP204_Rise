@@ -7,7 +7,6 @@ using UnityEngine;
 public class splashScreen : MonoBehaviour
 {
     public Image splashImage;
-    public string loadLevel;
 
     IEnumerator Start()
     {
