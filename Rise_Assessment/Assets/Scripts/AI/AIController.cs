@@ -8,7 +8,7 @@ public class AIController : MonoBehaviour
     private Vector2 currentTarget;
     private bool direction; // false = left, true = right
     private int currentCheckpoint;
-    private float health;
+    private static float health;
 
     public SpriteRenderer sr;
     public Animator animator;
@@ -43,6 +43,8 @@ public class AIController : MonoBehaviour
     public float attackRange;
     [SerializeField]
     float attackDamage;
+    [SerializeField]
+    float attackKnockbackForce;
 
     // Start is called before the first frame update
     void Start()
@@ -66,11 +68,23 @@ public class AIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(health);
         //Debug.DrawRay(transform.position, Vector2.left, Color.yellow, checkpointSensitivity);
         Animator();
         if (direction) sr.flipX = true; // facing/moving right
         else sr.flipX = false; // facing/moving left
         //stateMachine.DoWork();
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            Debug.Log("AI collision with player");
+            collision.gameObject.GetComponent<PlayerController>().DoDamage(attackDamage);
+            collision.gameObject.GetComponent<PlayerController>().Knockback(transform.position, attackKnockbackForce);
+            RemoveState(); // Go back to idle
+        }
     }
 
     void Animator()
@@ -175,10 +189,22 @@ public class AIController : MonoBehaviour
     public void DoDamage(float damage)
     {
         health -= damage;
+        Debug.Log(damage + " done to AI");
+        Debug.Log("AI health = " + health);
     }
 
     public float GetAttackDamage()
     {
         return attackDamage;
+    }
+
+    public void Knockback(Vector2 attackerPos, float attackForce)
+    {
+        Vector2 myPos;
+        myPos.x = transform.position.x;
+        myPos.y = transform.position.y;
+
+        Vector2 force = (attackerPos - myPos).normalized * attackForce;
+        GetComponent<Rigidbody2D>().AddForce(force);
     }
 }

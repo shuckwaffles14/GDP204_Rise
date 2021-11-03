@@ -21,8 +21,8 @@ public class MoveToAttack : AIBehaviour
         Vector2 target = AI.GetCurrentTarget();
         if (Vector2.Distance(target, AI.transform.position) > AI.attackRange) // if ai is out of attack range
         {
-            Debug.Log("distance = " + Vector2.Distance(target, AI.transform.position).ToString());
-            Debug.Log(AI.attackRange);
+            //Debug.Log("distance = " + Vector2.Distance(target, AI.transform.position).ToString());
+            //Debug.Log(AI.attackRange);
             if (target.x >= AI.transform.position.x)
             {
                 AI.Move(true); // move right

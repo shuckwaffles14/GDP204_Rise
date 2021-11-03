@@ -56,6 +56,8 @@ public class PlayerController : MonoBehaviour
     float attackCooldown;
     [SerializeField]
     float fireballDamage;
+    [SerializeField]
+    float attackKnockbackForce;
 
     // Start is called before the first frame update
     void Start()
@@ -86,7 +88,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log(facingRight);
+        Debug.Log("Player health = " + health);
+        HealthCheck();
         Move();
         CheckForGround();
         Attack();
@@ -190,12 +193,24 @@ public class PlayerController : MonoBehaviour
     public void DoDamage(float damage)
     {
         health -= damage;
+        Debug.Log(damage + " done to player");
+        Debug.Log("AI health = " + health);
     }
 
     public void AddHealth(float healthRefil) //add or take health, use negative value for takign health (e.g. poison potion)
     {
         health += healthRefil;
         //Debug.Log(health);
+    }
+
+    public void Knockback(Vector2 attackerPos, float attackForce)
+    {
+        Vector2 myPos;
+        myPos.x = transform.position.x;
+        myPos.y = transform.position.y;
+
+        Vector2 force = (attackerPos - myPos).normalized * attackForce;
+        GetComponent<Rigidbody2D>().AddForce(force);
     }
 
     void HealthCheck()
@@ -219,10 +234,12 @@ public class PlayerController : MonoBehaviour
             if (facingRight)
             {
                 clone = Instantiate(fireball, rightOrbShooterObj);
+                clone.GetComponent<SpriteRenderer>().flipX = true;
             }
             else
             {
                 clone = Instantiate(fireball, leftOrbShooterObj);
+                clone.GetComponent<SpriteRenderer>().flipX = false;
             }
             
             GetTarget(clone.GetComponent<FireballController>().fireballRange);
@@ -260,5 +277,18 @@ public class PlayerController : MonoBehaviour
     public float GetFireballDamage()
     {
         return fireballDamage;
+    }
+
+    public float GetKnockbackForce()
+    {
+        return attackKnockbackForce;
+    }
+
+    public Vector2 GetPos()
+    {
+        Vector2 myPos;
+        myPos.x = transform.position.x;
+        myPos.y = transform.position.y;
+        return myPos;
     }
 }

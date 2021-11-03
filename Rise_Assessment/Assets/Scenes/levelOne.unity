@@ -5826,6 +5826,7 @@ MonoBehaviour:
   viewDistance: 10
   attackRange: 0.5
   attackDamage: 0
+  attackKnockbackForce: 5
 --- !u!50 &1041959911
 Rigidbody2D:
   serializedVersion: 4
@@ -15692,6 +15693,11 @@ PrefabInstance:
       propertyPath: rightOrbShooterObj
       value: 
       objectReference: {fileID: 1113551223}
+    - target: {fileID: 6410192486664109942, guid: 769a1a34ca3d1f54eb251652be6fb8d7,
+        type: 3}
+      propertyPath: attackKnockbackForce
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6410192486664109948, guid: 769a1a34ca3d1f54eb251652be6fb8d7,
         type: 3}
       propertyPath: m_Name
