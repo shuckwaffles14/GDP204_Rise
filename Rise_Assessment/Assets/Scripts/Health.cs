@@ -35,10 +35,10 @@ public class Health : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        GetComponent<AudioSource>().Play();
-        Destroy(gameObject, destructionTimer);// the noise plays nicely but if i add this it destroys it before the noise plays T ^ T
         if (collision.gameObject.tag == "Player") // player object has tag set to player in editor
         {
+            GetComponent<AudioSource>().Play();
+            Destroy(gameObject, destructionTimer);// the noise plays nicely but if i add this it destroys it before the noise plays T ^ T
             collision.gameObject.GetComponent<PlayerController>().AddHealth(replenishmentValue);
         }
     }
