@@ -15,6 +15,7 @@ public class Patrol : AIBehaviour
         objSensitivity = AI.GetCheckpointSensitivity();
         target = AI.GetCurrentTarget();
         AI.ChangeAIAnimState(1);
+        behaviourName = "Patrol";
     }
 
     public override void DoBehaviour()

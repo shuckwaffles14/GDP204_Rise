@@ -12,6 +12,8 @@ public class Attack : AIBehaviour
         AI = _AIController;
         AI.ChangeAIAnimState(2);
         attackTimer = 0.25f;
+        behaviourName = "Attack";
+        AI.attackCollider.enabled = true; // turn on collider for AI attacks
     }
 
     public override void DoBehaviour()
@@ -19,6 +21,7 @@ public class Attack : AIBehaviour
         //Debug.Log("Attack");
         if (attackTimer <= 0.0f)
         {
+            AI.attackCollider.enabled = false; // turn collider back off to stop attacks
             AI.NewTopState(new AttackIdle());
         }
         attackTimer -= Time.deltaTime;

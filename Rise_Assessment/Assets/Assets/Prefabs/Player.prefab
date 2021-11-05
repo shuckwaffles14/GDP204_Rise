@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 1113551222}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 17.28854, y: -1.061895, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 20, y: 20, z: 1}
   m_Children: []
   m_Father: {fileID: 6410192486664109937}
   m_RootOrder: 2
@@ -222,10 +222,13 @@ MonoBehaviour:
     m_Bits: 256
   groundCheckerObj: {fileID: 6410192486533126190}
   checkerRadius: 0.1
-  orbShooterObj: {fileID: 6410192487158250628}
+  leftOrbShooterObj: {fileID: 6410192487158250628}
+  rightOrbShooterObj: {fileID: 1113551223}
   shooterOffset: {x: 0, y: 0}
   fireball: {fileID: 723732597480644931, guid: 85d69909ff8fbef42bf258df0e54b930, type: 3}
   attackCooldown: 0
+  fireballDamage: 10
+  attackKnockbackForce: 50
 --- !u!58 &6410192486664109943
 CircleCollider2D:
   m_ObjectHideFlags: 0

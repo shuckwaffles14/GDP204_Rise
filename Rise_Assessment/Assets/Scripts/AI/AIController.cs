@@ -9,10 +9,12 @@ public class AIController : MonoBehaviour
     private bool direction; // false = left, true = right
     private int currentCheckpoint;
     private static float health;
+    private const float attackColliderOffset = 5.25f;
 
     public SpriteRenderer sr;
     public Animator animator;
     public AIStateMachine stateMachine;
+    public BoxCollider2D attackCollider;
 
     private enum AIAnimState
     {
@@ -63,27 +65,67 @@ public class AIController : MonoBehaviour
         //animator = GetComponent<Animator>();
         //sr = GetComponent<SpriteRenderer>();
         health = 100.0f;
+        attackCollider.enabled = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(health);
+        //Debug.Log(health);
         //Debug.DrawRay(transform.position, Vector2.left, Color.yellow, checkpointSensitivity);
         Animator();
-        if (direction) sr.flipX = true; // facing/moving right
-        else sr.flipX = false; // facing/moving left
+        if (direction) // facing/moving right
+        {
+            sr.flipX = true;
+            attackCollider.offset = new Vector2(attackColliderOffset, -5);
+        }
+        else // facing/moving left
+        {
+            sr.flipX = false;
+            attackCollider.offset = new Vector2(-1 * attackColliderOffset, -5);
+        }
         //stateMachine.DoWork();
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    //private void OnCollisionEnter2D(Collision2D collision) // Checks normal hitbox for AI in case player runs into enemy
+    //{
+    //    if (collision.gameObject.tag == "Player")
+    //    {
+    //        collision.gameObject.GetComponent<PlayerController>().DoDamage(attackDamage);
+    //        if (direction)
+    //        {
+    //            collision.gameObject.GetComponent<Rigidbody2D>().AddForce(transform.up * 100);
+    //            collision.gameObject.GetComponent<Rigidbody2D>().AddForce((transform.right * 1000) * attackKnockbackForce);
+    //        }
+    //        else if (!direction)
+    //        {
+    //            collision.gameObject.GetComponent<Rigidbody2D>().AddForce(transform.up * 100);
+    //            collision.gameObject.GetComponent<Rigidbody2D>().AddForce((transform.right * -1000) * attackKnockbackForce);
+    //        }
+    //        //collision.gameObject.GetComponent<PlayerController>().Knockback(transform.position, attackKnockbackForce);
+    //        NewTopState(new AttackIdle());
+    //        //RemoveState(); // Go back to idle
+    //    }
+    //}
+
+    private void OnTriggerEnter2D(Collider2D collision) // Checks the attack hitbox while active
     {
         if (collision.gameObject.tag == "Player")
         {
-            Debug.Log("AI collision with player");
             collision.gameObject.GetComponent<PlayerController>().DoDamage(attackDamage);
-            collision.gameObject.GetComponent<PlayerController>().Knockback(transform.position, attackKnockbackForce);
-            RemoveState(); // Go back to idle
+            if (direction)
+            {
+                collision.gameObject.GetComponent<Rigidbody2D>().AddForce(transform.up * 100);
+                collision.gameObject.GetComponent<Rigidbody2D>().AddForce((transform.right * 1000) * attackKnockbackForce);
+            }
+            else if (!direction)
+            {
+                collision.gameObject.GetComponent<Rigidbody2D>().AddForce(transform.up * 100);
+                collision.gameObject.GetComponent<Rigidbody2D>().AddForce((transform.right * -1000) * attackKnockbackForce);
+            }
+            //collision.gameObject.GetComponent<PlayerController>().Knockback(transform.position, attackKnockbackForce);
+            attackCollider.enabled = false;
+            NewTopState(new AttackIdle());
         }
     }
 
@@ -118,6 +160,11 @@ public class AIController : MonoBehaviour
     public void NewTopState(AIBehaviour state)
     {
         stateMachine.NewTopState(state);
+    }
+
+    public AIBehaviour GetTopState()
+    {
+        return stateMachine.GetTopState();
     }
 
     public bool GetDirection()

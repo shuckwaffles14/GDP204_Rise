@@ -67,7 +67,9 @@ public class FireballController : MonoBehaviour
 
         if (collision.gameObject.tag == "Enemy")
         {
+            Debug.Log("Fireball damage: " + player.GetComponent<PlayerController>().GetFireballDamage());
             collision.gameObject.GetComponent<AIController>().DoDamage(player.GetComponent<PlayerController>().GetFireballDamage());
+            Debug.Log("Fireball knockback force: " + player.GetComponent<PlayerController>().GetKnockbackForce() * 10);
             collision.gameObject.GetComponent<AIController>().Knockback(player.GetComponent<PlayerController>().GetPos(), player.GetComponent<PlayerController>().GetKnockbackForce() * 10);
             Debug.Log("Fireball hit AI");
             Destroy(this.gameObject);

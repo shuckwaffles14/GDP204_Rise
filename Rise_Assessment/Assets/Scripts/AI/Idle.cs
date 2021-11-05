@@ -13,6 +13,7 @@ public class Idle : AIBehaviour
         waitTimer = 2.5f;
         AI = _AIController;
         AI.ChangeAIAnimState(0);
+        behaviourName = "Idle";
         //Debug.Log("Idle Setup");
     }
 

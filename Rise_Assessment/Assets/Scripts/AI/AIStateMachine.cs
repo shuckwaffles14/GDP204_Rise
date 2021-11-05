@@ -54,4 +54,9 @@ public class AIStateMachine : MonoBehaviour
         }
         AddState(behaviour);
     }
+
+    public AIBehaviour GetTopState()
+    {
+        return AIBehaviours.Peek();
+    }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AIBehaviour
 {
+    public string behaviourName;
     public class Check
     {
         public bool playerSighted;
@@ -68,14 +69,31 @@ public class AIBehaviour
 
     public void GetPositiveCheck(Check _check) // works with CheckForPlayer() so if player is found, AI knows to change behaviour
     {
+        AIBehaviour currentBehaviour = AI.GetTopState();
         if (_check != null) // if check came up with a result
         {
             if (Vector2.Distance(_check.targetLocation, AI.transform.position) <= AI.attackRange) //if within attack range
             {
+                // Don't need to check current behaviour, AI will not do this func in Attack() behaviour
                 AI.UpdateTarget(_check.targetLocation);
                 AI.NewTopState(new Attack());
             }
-            AI.NewTopState(new MoveToAttack());
+            if (currentBehaviour.behaviourName != "MoveToAttack") // Only move to attack if not already moving to attack
+            {
+                AI.NewTopState(new MoveToAttack());
+            }
+        }
+        else // if no result from check
+        {
+            if (currentBehaviour.behaviourName == "Idle") // if AI in Idle, do nothing
+            {
+                return;
+            }
+
+            if (currentBehaviour.behaviourName != "Patrol") // Only patrol if not already patrolling
+            {
+                AI.NewTopState(new Patrol());
+            }
         }
     }
 

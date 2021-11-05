@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Camera")]
     [SerializeField]
-    Camera mainCamera;
+    GameObject mainCamera;
     [SerializeField]
     Vector2 cameraOffset;
 
@@ -71,13 +71,14 @@ public class PlayerController : MonoBehaviour
         walkSpeed = 2.5f;
         runSpeed = 5f;
         facingRight = true;
-        jumpHeight = 5f;
+        jumpHeight = 7.5f;
         onGround = false;
         fallMultiplier = 2.5f;
         lowJumpMultiplier = 2f;
         checkerRadius = 0.1f;
         animator = GetComponent<Animator>();
         attackCooldown = 0.1f;
+        mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
 
         if (mainCamera)
         {
@@ -88,7 +89,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Player health = " + health);
+        //Debug.Log("Player health = " + health);
         HealthCheck();
         Move();
         CheckForGround();

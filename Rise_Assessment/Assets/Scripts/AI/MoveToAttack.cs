@@ -10,6 +10,7 @@ public class MoveToAttack : AIBehaviour
     {
         AI = _AIController;
         AI.ChangeAIAnimState(1);
+        behaviourName = "MoveToAttack";
     }
 
     public override void DoBehaviour()

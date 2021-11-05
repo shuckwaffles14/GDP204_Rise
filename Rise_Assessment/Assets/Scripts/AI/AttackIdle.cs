@@ -10,9 +10,10 @@ public class AttackIdle : AIBehaviour
 
     public override void Setup(AIController _AIController)
     {
-        waitTimer = 0.2f;
+        waitTimer = 0.5f;
         AI = _AIController;
         AI.ChangeAIAnimState(0);
+        behaviourName = "AttackIdle";
     }
 
     public override void DoBehaviour()
@@ -20,7 +21,7 @@ public class AttackIdle : AIBehaviour
         //Debug.Log("Attack Idle");
         if (waitTimer <= 0.0f)
         {
-            base.DoBehaviour(); // will either attack player again, move to attack player again, or will go back to idle to then go back to patrol if player has been lost
+            base.DoBehaviour(); // will either attack player again, move to attack player again, or will go back to patrol if player has been lost
         }
         waitTimer -= Time.deltaTime;
     }
