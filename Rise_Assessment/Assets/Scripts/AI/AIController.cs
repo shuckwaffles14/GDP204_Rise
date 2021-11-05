@@ -8,8 +8,10 @@ public class AIController : MonoBehaviour
     private Vector2 currentTarget;
     private bool direction; // false = left, true = right
     private int currentCheckpoint;
-    private static float health;
+    private float health;
     private const float attackColliderOffset = 5.25f;
+    private GameObject pauseObj;
+    float invulnerability;
 
     public SpriteRenderer sr;
     public Animator animator;
@@ -51,6 +53,7 @@ public class AIController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log("Start of Start()");
         if (!useEditorVariables)
         {
             movementSpeed = 2.5f;
@@ -66,6 +69,9 @@ public class AIController : MonoBehaviour
         //sr = GetComponent<SpriteRenderer>();
         health = 100.0f;
         attackCollider.enabled = false;
+        pauseObj = GameObject.FindGameObjectWithTag("Pause");
+        invulnerability = 0f;
+        Debug.Log("End of Start()");
     }
 
     // Update is called once per frame
@@ -73,40 +79,59 @@ public class AIController : MonoBehaviour
     {
         //Debug.Log(health);
         //Debug.DrawRay(transform.position, Vector2.left, Color.yellow, checkpointSensitivity);
-        Animator();
-        if (direction) // facing/moving right
+        if (!pauseObj.GetComponent<PauseMenu>().GetPauseStatus())
         {
-            sr.flipX = true;
-            attackCollider.offset = new Vector2(attackColliderOffset, -5);
-        }
-        else // facing/moving left
-        {
-            sr.flipX = false;
-            attackCollider.offset = new Vector2(-1 * attackColliderOffset, -5);
+            invulnerability -= Time.deltaTime;
+            Animator();
+            if (direction) // facing/moving right
+            {
+                sr.flipX = true;
+                attackCollider.offset = new Vector2(attackColliderOffset, -5);
+            }
+            else // facing/moving left
+            {
+                sr.flipX = false;
+                attackCollider.offset = new Vector2(-1 * attackColliderOffset, -5);
+            }
+
+            if (health <= 0f)
+            {
+                NewTopState(new Death());
+                GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 0f);
+                GetComponent<Rigidbody2D>().gravityScale = 0f;
+                BoxCollider2D[] bc2dList = GetComponents<BoxCollider2D>();
+                foreach (BoxCollider2D bc2d in bc2dList)
+                {
+                    bc2d.enabled = false;
+                }
+                CircleCollider2D cc2d = GetComponent<CircleCollider2D>();
+                cc2d.enabled = false;
+                Destroy(this.gameObject, 3f);
+            }
         }
         //stateMachine.DoWork();
     }
 
-    //private void OnCollisionEnter2D(Collision2D collision) // Checks normal hitbox for AI in case player runs into enemy
-    //{
-    //    if (collision.gameObject.tag == "Player")
-    //    {
-    //        collision.gameObject.GetComponent<PlayerController>().DoDamage(attackDamage);
-    //        if (direction)
-    //        {
-    //            collision.gameObject.GetComponent<Rigidbody2D>().AddForce(transform.up * 100);
-    //            collision.gameObject.GetComponent<Rigidbody2D>().AddForce((transform.right * 1000) * attackKnockbackForce);
-    //        }
-    //        else if (!direction)
-    //        {
-    //            collision.gameObject.GetComponent<Rigidbody2D>().AddForce(transform.up * 100);
-    //            collision.gameObject.GetComponent<Rigidbody2D>().AddForce((transform.right * -1000) * attackKnockbackForce);
-    //        }
-    //        //collision.gameObject.GetComponent<PlayerController>().Knockback(transform.position, attackKnockbackForce);
-    //        NewTopState(new AttackIdle());
-    //        //RemoveState(); // Go back to idle
-    //    }
-    //}
+    private void OnCollisionEnter2D(Collision2D collision) // Checks normal hitbox for AI in case player runs into enemy
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            collision.gameObject.GetComponent<PlayerController>().DoDamage(attackDamage);
+            if (direction)
+            {
+                collision.gameObject.GetComponent<Rigidbody2D>().AddForce(transform.up * 100);
+                collision.gameObject.GetComponent<Rigidbody2D>().AddForce((transform.right * 1000) * attackKnockbackForce);
+            }
+            else if (!direction)
+            {
+                collision.gameObject.GetComponent<Rigidbody2D>().AddForce(transform.up * 100);
+                collision.gameObject.GetComponent<Rigidbody2D>().AddForce((transform.right * -1000) * attackKnockbackForce);
+            }
+            //collision.gameObject.GetComponent<PlayerController>().Knockback(transform.position, attackKnockbackForce);
+            NewTopState(new AttackIdle());
+            //RemoveState(); // Go back to idle
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D collision) // Checks the attack hitbox while active
     {
@@ -129,12 +154,17 @@ public class AIController : MonoBehaviour
         }
     }
 
+    public void Setup(GameObject[] _checkpoints)
+    {
+        checkpoints = _checkpoints;
+    }
+
     void Animator()
     {
         if (aiAS == AIAnimState.Idle) animator.SetInteger("AnimationState", 0);
         else if (aiAS == AIAnimState.Walking) animator.SetInteger("AnimationState", 1);
         else if (aiAS == AIAnimState.Attacking) animator.SetInteger("AnimationState", 2);
-        else if (aiAS == AIAnimState.Death) animator.SetInteger("AnimationState", 3);
+        else if (aiAS == AIAnimState.Death) animator.SetTrigger("Dead");
     }
 
     public Vector2 GetCurrentTarget()
@@ -235,9 +265,13 @@ public class AIController : MonoBehaviour
 
     public void DoDamage(float damage)
     {
-        health -= damage;
-        Debug.Log(damage + " done to AI");
-        Debug.Log("AI health = " + health);
+        if (invulnerability <= 0.00f)
+        {
+            health -= damage;
+            invulnerability = 0.25f;
+            Debug.Log(damage + " done to AI");
+            Debug.Log("AI health = " + health);
+        }
     }
 
     public float GetAttackDamage()
@@ -251,7 +285,7 @@ public class AIController : MonoBehaviour
         myPos.x = transform.position.x;
         myPos.y = transform.position.y;
 
-        Vector2 force = (attackerPos - myPos).normalized * attackForce;
-        GetComponent<Rigidbody2D>().AddForce(force);
+        Vector2 force = (myPos - attackerPos).normalized * attackForce;
+        GetComponent<Rigidbody2D>().AddForce(force + (Vector2.up * 100f));
     }
 }

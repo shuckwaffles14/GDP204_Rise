@@ -4,20 +4,22 @@ using UnityEngine;
 
 public class AIStateMachine : MonoBehaviour
 {
-    static private Stack<AIBehaviour> AIBehaviours;
+    private Stack<AIBehaviour> AIBehaviours;
     private int behaviourCount;
+    private GameObject player;
 
     // Start is called before the first frame update
     void Start()
     {
         AIBehaviours = new Stack<AIBehaviour>();
         AddState(new Idle()); //Idle is base state
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
     void Update()
     {
-        DoWork();
+        if (!player.GetComponent<PlayerController>().GetPlayerDead()) DoWork(); //if player not dead, do work
     }
 
     public void DoWork()

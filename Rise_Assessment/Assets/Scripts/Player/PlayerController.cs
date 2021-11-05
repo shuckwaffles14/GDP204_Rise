@@ -1,18 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement; // CHANGE THIS
 
 public class PlayerController : MonoBehaviour
 {
     float moveDirection;
     BoxCollider2D bc2d;
-    bool onGround, facingRight;
+    bool onGround, facingRight, playerDead;
     Rigidbody2D rb2d;
     Transform t;
     Vector3 cameraPos;
     private Animator animator;
     static Vector2 targetLocation;
+    private GameObject pauseObj;
+    float invulnerability;
 
+    public Slider healthBar;
+    
     [Header("Camera")]
     [SerializeField]
     GameObject mainCamera;
@@ -26,6 +32,8 @@ public class PlayerController : MonoBehaviour
     float walkSpeed;
     [SerializeField]
     float runSpeed;
+    [SerializeField]
+    float climbSpeed;
     [SerializeField]
     float jumpHeight;
     [SerializeField]
@@ -79,6 +87,12 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         attackCooldown = 0.1f;
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+        pauseObj = GameObject.FindGameObjectWithTag("Pause");
+        playerDead = false;
+        invulnerability = 0f;
+        climbSpeed = 2f;
+        healthBar = GameObject.FindWithTag("HealthBar").GetComponent<Slider>();
+        healthBar.value = health;
 
         if (mainCamera)
         {
@@ -90,19 +104,50 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         //Debug.Log("Player health = " + health);
-        HealthCheck();
-        Move();
-        CheckForGround();
-        Attack();
-        Jump();
-        BetterJump();
-        Collisions();
-        Camera();
+        if (!playerDead)
+        {
+            if (!pauseObj.GetComponent<PauseMenu>().GetPauseStatus())
+            {
+                invulnerability -= Time.deltaTime;
+                HealthCheck();
+                Move();
+                CheckForGround();
+                Attack();
+                Jump();
+                BetterJump();
+                //Collisions();
+                Camera();
+            }
+        }
+        else
+        {
+            rb2d.velocity = new Vector2(0f, 0f);
+        }
     }
 
-    void FixedUpdate()
+    private void OnTriggerStay2D(Collider2D collision)
     {
+        if (collision.gameObject.tag == "Ladder")
+        {
+            if (Input.GetKey(KeyCode.W))
+            {
+                rb2d.velocity = new Vector2(rb2d.velocity.x, climbSpeed);
+                rb2d.gravityScale = 0f;
+            }
+            else if (Input.GetKey(KeyCode.S))
+            {
+                rb2d.velocity = new Vector2(rb2d.velocity.x, -1 * climbSpeed);
+                rb2d.gravityScale = 0f;
+            }
+        }
+    }
 
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Ladder")
+        {
+            rb2d.gravityScale = 1f;
+        }
     }
 
     private void Move()
@@ -177,25 +222,29 @@ public class PlayerController : MonoBehaviour
         else onGround = false;
     }
 
-    private void Collisions()
-    {
-        //Check for all collisions
+    //private void Collisions()
+    //{
+    //    //Check for all collisions
 
-        // Ladders
+    //    // Ladders
 
-        // Enemies
+    //    // Enemies
 
-        // Doors
+    //    // Doors
 
 
-        // Or do a collision func for collisions
-    }
+    //    // Or do a collision func for collisions
+    //}
 
     public void DoDamage(float damage)
     {
-        health -= damage;
-        Debug.Log(damage + " done to player");
-        Debug.Log("AI health = " + health);
+        if (invulnerability <= 0.00f)
+        {
+            health -= damage;
+            invulnerability = 0.25f;
+            Debug.Log(damage + " done to player");
+            Debug.Log("AI health = " + health);
+        }
     }
 
     public void AddHealth(float healthRefil) //add or take health, use negative value for takign health (e.g. poison potion)
@@ -216,9 +265,14 @@ public class PlayerController : MonoBehaviour
 
     void HealthCheck()
     {
+        healthBar.value = health;
         if (health <= 0f)
         {
             //die
+            //animator.SetBool("PlayerDead", true);
+            animator.SetTrigger("PlayerDeath");
+            playerDead = true;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // reload scene on death -- CHANGE THIS
         }
     }
 
@@ -291,5 +345,10 @@ public class PlayerController : MonoBehaviour
         myPos.x = transform.position.x;
         myPos.y = transform.position.y;
         return myPos;
+    }
+
+    public bool GetPlayerDead()
+    {
+        return playerDead;
     }
 }
