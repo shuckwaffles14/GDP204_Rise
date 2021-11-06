@@ -20,7 +20,7 @@ public class Idle : AIBehaviour
     public override void DoBehaviour()
     {
         base.DoBehaviour(); // check for player
-        //Debug.Log("Idle");
+        Debug.Log("Idle");
         if (waitTimer <= 0.0f)
         {
             AI.AddState(new Patrol()); // Adds a patrol state if no player found

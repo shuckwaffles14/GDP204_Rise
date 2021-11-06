@@ -6,24 +6,60 @@ public class Attack : AIBehaviour
 {
     //private AIController ourAI; // reference to the AI the owns the behaviour
     float attackTimer; // how long the attack actually lasts
+    int enemyType; // 1 = E1, 2 = E2, 3 = E3
+    bool attacked;
 
     public override void Setup(AIController _AIController)
     {
         AI = _AIController;
         AI.ChangeAIAnimState(2);
-        attackTimer = 0.25f;
         behaviourName = "Attack";
         AI.attackCollider.enabled = true; // turn on collider for AI attacks
+        enemyType = AI.GetEnemyType();
+        if (enemyType == 1)
+        {
+            attackTimer = 0.25f;
+        }
+        else if (enemyType == 2)
+        {
+            attackTimer = 1.5f;
+        }
     }
 
     public override void DoBehaviour()
     {
-        //Debug.Log("Attack");
-        if (attackTimer <= 0.0f)
+        Debug.Log("Attack");
+        if (enemyType == 1)
         {
-            AI.attackCollider.enabled = false; // turn collider back off to stop attacks
-            AI.NewTopState(new AttackIdle());
+            if (attackTimer <= 0.0f)
+            {
+                attacked = true;
+                AI.attackCollider.enabled = false; // turn collider back off to stop attacks (E1)
+                AI.NewTopState(new AttackIdle());
+            }
+            attackTimer -= Time.deltaTime;
         }
-        attackTimer -= Time.deltaTime;
+        else if (enemyType == 2)
+        {
+            if (attackTimer <= 0.66f && !attacked)
+            {
+                GameObject clone;
+                attacked = true;
+                if (AI.GetDirection())
+                {
+                    clone = GameObject.Instantiate(AI.fireball, AI.eyesRight.transform);
+                    clone.GetComponent<SpriteRenderer>().flipX = true;
+                }
+                else
+                {
+                    clone = GameObject.Instantiate(AI.fireball, AI.eyesLeft.transform);
+                    clone.GetComponent<SpriteRenderer>().flipX = false;
+                }
+                clone.GetComponent<EnemyProjectileController>().AI = AI.gameObject;
+                clone.GetComponent<Rigidbody2D>().velocity = AI.GetCurrentTarget() * clone.GetComponent<EnemyProjectileController>().projectileSpeed;
+            }
+            if (attackTimer <= 0.0f) AI.NewTopState(new AttackIdle());
+            attackTimer -= Time.deltaTime;
+        }
     }
 }

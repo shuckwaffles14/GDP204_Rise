@@ -17,7 +17,7 @@ public class MoveToAttack : AIBehaviour
     {
         base.DoBehaviour(); // check for player
 
-        //Debug.Log("Move to Attack");
+        Debug.Log("Move to Attack");
 
         Vector2 target = AI.GetCurrentTarget();
         if (Vector2.Distance(target, AI.transform.position) > AI.attackRange) // if ai is out of attack range

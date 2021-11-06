@@ -35,7 +35,7 @@ public class AIBehaviour
         float vd = AI.GetViewDistance();
         bool dir = AI.GetDirection();
 
-        for (int iterator = 0; iterator < 5; iterator++)
+        for (int iterator = 0; iterator < 9; iterator++)
         {
             if (dir) // if AI looking right
             {
@@ -50,6 +50,8 @@ public class AIBehaviour
                 rayDir.y += GetRays(iterator);
                 hit = Physics2D.Raycast(AI.eyesLeft.transform.position, rayDir, vd);
             }
+
+            Debug.Log(hit);
 
             if (hit.collider != null)
             {
@@ -99,27 +101,28 @@ public class AIBehaviour
 
     float GetRays(int _iterator)
     {
-        if (_iterator == 0)
+        switch(_iterator)
         {
-            return 1f;
+            case 0:
+                return 1f;
+            case 1:
+                return 0.75f;
+            case 2:
+                return 0.5f;
+            case 3:
+                return 0.25f;
+            case 4:
+                return 0f;
+            case 5:
+                return -0.25f;
+            case 6:
+                return -0.5f;
+            case 7:
+                return -0.75f;
+            case 8:
+                return -1f;
+            default:
+                return 0f;
         }
-        else if (_iterator == 1)
-        {
-            return 0.5f;
-        }
-        else if (_iterator == 2)
-        {
-            return 0f;
-        }
-        else if (_iterator == 3)
-        {
-            return -0.5f;
-        }
-        else if (_iterator == 4)
-        {
-            return -1f;
-        }
-
-        return 0f;
     }
 }

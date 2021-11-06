@@ -24,7 +24,7 @@ public class GameManagerScript : MonoBehaviour
         //spawn player + items + enemies
         Instantiate(playerPrefab, playerSpawn);
         GameObject clone1 = Instantiate(enemy1Prefab, enemySpawn);
-        clone1.GetComponent<AIController>().Setup(checkpoints);
+        clone1.GetComponent<AIController>().Setup(checkpoints, 2);
 
         // uncomment when changing spawn system
         //foreach (Enemy enemy in enemies)

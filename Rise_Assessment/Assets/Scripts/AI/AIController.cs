@@ -8,6 +8,7 @@ public class AIController : MonoBehaviour
     private Vector2 currentTarget;
     private bool direction; // false = left, true = right
     private int currentCheckpoint;
+    private int enemyType; // 1 = E1, 2 = E2, 3 = E3
     private float health;
     private const float attackColliderOffset = 5.25f;
     private GameObject pauseObj;
@@ -16,7 +17,10 @@ public class AIController : MonoBehaviour
     public SpriteRenderer sr;
     public Animator animator;
     public AIStateMachine stateMachine;
+    [Tooltip("This is only necessary for E1")]
     public BoxCollider2D attackCollider;
+    [Tooltip("This is only necessary for E2")]
+    public GameObject fireball;
 
     private enum AIAnimState
     {
@@ -68,7 +72,7 @@ public class AIController : MonoBehaviour
         //animator = GetComponent<Animator>();
         //sr = GetComponent<SpriteRenderer>();
         health = 100.0f;
-        attackCollider.enabled = false;
+        if (enemyType == 1) attackCollider.enabled = false;
         pauseObj = GameObject.FindGameObjectWithTag("Pause");
         invulnerability = 0f;
         Debug.Log("End of Start()");
@@ -86,12 +90,12 @@ public class AIController : MonoBehaviour
             if (direction) // facing/moving right
             {
                 sr.flipX = true;
-                attackCollider.offset = new Vector2(attackColliderOffset, -5);
+                if (enemyType == 1) attackCollider.offset = new Vector2(attackColliderOffset, -5);
             }
             else // facing/moving left
             {
                 sr.flipX = false;
-                attackCollider.offset = new Vector2(-1 * attackColliderOffset, -5);
+                if (enemyType == 1) attackCollider.offset = new Vector2(-1 * attackColliderOffset, -5);
             }
 
             if (health <= 0f)
@@ -154,9 +158,10 @@ public class AIController : MonoBehaviour
         }
     }
 
-    public void Setup(GameObject[] _checkpoints)
+    public void Setup(GameObject[] _checkpoints, int eType)
     {
         checkpoints = _checkpoints;
+        enemyType = eType;
     }
 
     void Animator()
@@ -279,6 +284,11 @@ public class AIController : MonoBehaviour
         return attackDamage;
     }
 
+    public float GetKnockbackForce()
+    {
+        return attackKnockbackForce;
+    }
+
     public void Knockback(Vector2 attackerPos, float attackForce)
     {
         Vector2 myPos;
@@ -287,5 +297,18 @@ public class AIController : MonoBehaviour
 
         Vector2 force = (myPos - attackerPos).normalized * attackForce;
         GetComponent<Rigidbody2D>().AddForce(force + (Vector2.up * 100f));
+    }
+
+    public int GetEnemyType()
+    {
+        return enemyType;
+    }
+
+    public Vector2 GetPos()
+    {
+        Vector2 myPos;
+        myPos.x = transform.position.x;
+        myPos.y = transform.position.y;
+        return myPos;
     }
 }

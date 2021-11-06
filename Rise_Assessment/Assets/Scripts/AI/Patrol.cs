@@ -21,7 +21,7 @@ public class Patrol : AIBehaviour
     public override void DoBehaviour()
     {
         base.DoBehaviour(); // check for player
-        //Debug.Log("Patrol");
+        Debug.Log("Patrol");
         currentPosition = AI.transform.position;
 
         if (currentPosition.x >= target.x) // if to right of target
