@@ -13,6 +13,8 @@ public class AIController : MonoBehaviour
     private const float attackColliderOffset = 5.25f;
     private GameObject pauseObj;
     float invulnerability;
+    float distanceToGround;
+    private GameObject player;
 
     public SpriteRenderer sr;
     public Animator animator;
@@ -40,7 +42,7 @@ public class AIController : MonoBehaviour
     [SerializeField]
     float checkpointSensitivity;
     [SerializeField]
-    public GameObject[] checkpoints;// patrol checkpoints for ai - must be set in Unity
+    public GameObject[] checkpoints;// patrol checkpoints for ai
     [SerializeField]
     public GameObject eyesLeft;
     [SerializeField]
@@ -76,6 +78,8 @@ public class AIController : MonoBehaviour
         pauseObj = GameObject.FindGameObjectWithTag("Pause");
         invulnerability = 0f;
         Debug.Log("End of Start()");
+        distanceToGround = 100f;
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
@@ -254,18 +258,72 @@ public class AIController : MonoBehaviour
     public void Move(bool _direction)
     {
         direction = _direction;
-        if (direction) // moving right
+        if (CheckNextMovement(direction))
         {
-            rb2d.velocity = Vector2.right * movementSpeed;
-            //transform.position += (Vector3.right * movementSpeed) * Time.fixedDeltaTime;
-            //Debug.Log("AI move right");
+            if (direction) // moving right
+            {
+                rb2d.velocity = Vector2.right * movementSpeed;
+            }
+            else // moving left
+            {
+                rb2d.velocity = Vector2.left * movementSpeed;
+            }
         }
-        else // moving left
+        else
         {
-            rb2d.velocity = Vector2.left * movementSpeed;
-            //transform.position += (Vector3.left * movementSpeed) * Time.fixedDeltaTime;
-            //Debug.Log("AI move left");
+            Vector2 curTar = GetCurrentTarget();
+            foreach(GameObject cp in checkpoints)
+            {
+                Vector2 tempCPPos = cp.transform.position;
+                if (curTar == tempCPPos) // if the current targetted checkpoint is not accessible, move the location to this point
+                {
+                    Vector2 thisPos = transform.position;
+                    cp.transform.position = thisPos;
+                }
+            }
+
+            Vector2 tempPlayerPos = player.transform.position;
+            if (curTar == tempPlayerPos)
+            {
+                // change direction
+                if (direction) direction = false;
+                else direction = true;
+
+                // go back to idle
+                RemoveState();
+            }
         }
+    }
+
+    private bool CheckNextMovement(bool _direction) // Checks if AI is about to walk off a ledge. If AI is about to walk off a ledge to reach next checkpoint, move that checkpoint to this position
+    {
+        RaycastHit2D hit;
+        Vector2 rayDir = Vector2.down;
+        if (_direction)
+        {
+            rayDir.x = 0.05f;
+            hit = Physics2D.Raycast(eyesRight.transform.position, rayDir, distanceToGround);
+        }
+        else
+        {
+            rayDir.x = -0.05f;
+            hit = Physics2D.Raycast(eyesLeft.transform.position, rayDir, distanceToGround) ;
+        }
+
+        if (hit.collider != null)
+        {
+            if (hit.collider.tag == "Player" || hit.collider.tag == "Collisions")
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public float GetHealth()
+    {
+        return health;
     }
 
     public void DoDamage(float damage)
@@ -274,8 +332,6 @@ public class AIController : MonoBehaviour
         {
             health -= damage;
             invulnerability = 0.25f;
-            Debug.Log(damage + " done to AI");
-            Debug.Log("AI health = " + health);
         }
     }
 

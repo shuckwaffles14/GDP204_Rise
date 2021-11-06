@@ -51,8 +51,6 @@ public class AIBehaviour
                 hit = Physics2D.Raycast(AI.eyesLeft.transform.position, rayDir, vd);
             }
 
-            Debug.Log(hit);
-
             if (hit.collider != null)
             {
                 if (hit.collider.CompareTag("Player"))
