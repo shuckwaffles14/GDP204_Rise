@@ -290,6 +290,7 @@ public class AIController : MonoBehaviour
                 else direction = true;
 
                 // go back to idle
+                GetNextCheckpoint();
                 RemoveState();
             }
         }

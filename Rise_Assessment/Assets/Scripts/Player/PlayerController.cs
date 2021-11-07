@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
 {
     float moveDirection;
     BoxCollider2D bc2d;
-    bool onGround, facingRight, playerDead;
+    bool onGround, facingRight, playerDead, canAttack;
     Rigidbody2D rb2d;
     Transform t;
     Vector3 cameraPos;
@@ -122,6 +122,10 @@ public class PlayerController : MonoBehaviour
         else
         {
             rb2d.velocity = new Vector2(0f, 0f);
+            if (Input.anyKey)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // reload scene on death
+            }
         }
     }
 
@@ -129,15 +133,18 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Ladder")
         {
+            canAttack = false;
             if (Input.GetKey(KeyCode.W))
             {
                 rb2d.velocity = new Vector2(rb2d.velocity.x, climbSpeed);
                 rb2d.gravityScale = 0f;
+                animator.SetBool("Climbing", true);
             }
             else if (Input.GetKey(KeyCode.S))
             {
                 rb2d.velocity = new Vector2(rb2d.velocity.x, -1 * climbSpeed);
                 rb2d.gravityScale = 0f;
+                animator.SetBool("Climbing", true);
             }
         }
     }
@@ -146,7 +153,9 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Ladder")
         {
+            canAttack = true;
             rb2d.gravityScale = 1f;
+            animator.SetBool("Climbing", true);
         }
     }
 
@@ -268,11 +277,9 @@ public class PlayerController : MonoBehaviour
         healthBar.value = health;
         if (health <= 0f)
         {
-            //die
-            //animator.SetBool("PlayerDead", true);
             animator.SetTrigger("PlayerDeath");
             playerDead = true;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // reload scene on death -- CHANGE THIS
+            rb2d.gravityScale = 1f; // makes sure that if player dies on ladder, gravity gets returned to normal
         }
     }
 
