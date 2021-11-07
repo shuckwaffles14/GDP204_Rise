@@ -412,7 +412,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10d2ae6780b93734eb9bc7bb1b63e171, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tpPoint: {fileID: 0}
+  tpPoint: {fileID: 776450041}
   waterDamage: 0
 --- !u!1 &65983253
 GameObject:
