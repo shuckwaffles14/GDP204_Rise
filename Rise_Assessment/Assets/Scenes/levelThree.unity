@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -5306,13 +5306,13 @@ MonoBehaviour:
     type: 3}
   playerSpawn: {fileID: 776450042}
   enemies:
-  - enemyPrefab: {fileID: 1448193984993356809, guid: 169c1d73a825a984fa88c57afe5c4728,
+  - enemyPrefab: {fileID: 8810943937721812553, guid: 8ab445702189d1b4b9a6d6af250108d6,
       type: 3}
     spawnPoint: {fileID: 1846643478}
     checkpoints:
     - {fileID: 469967157}
     - {fileID: 1844210317}
-    enemyType: 1
+    enemyType: 2
 --- !u!4 &1364715404
 Transform:
   m_ObjectHideFlags: 0
@@ -5695,6 +5695,7 @@ GameObject:
   - component: {fileID: 1450717920}
   - component: {fileID: 1450717922}
   - component: {fileID: 1450717923}
+  - component: {fileID: 1450717924}
   m_Layer: 0
   m_Name: Elevator
   m_TagString: Untagged
@@ -5819,6 +5820,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 62.774033, y: 8.450745}
   m_EdgeRadius: 0
+--- !u!114 &1450717924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1450717919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72def44acfcdc97489b0f2875b40a341, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1567650338
 GameObject:
   m_ObjectHideFlags: 0

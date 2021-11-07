@@ -14,10 +14,10 @@ public class Attack : AIBehaviour
         AI = _AIController;
         AI.ChangeAIAnimState(2);
         behaviourName = "Attack";
-        AI.attackCollider.enabled = true; // turn on collider for AI attacks
         enemyType = AI.GetEnemyType();
         if (enemyType == 1)
         {
+            AI.attackCollider.enabled = true; // turn on collider for AI attacks
             attackTimer = 0.25f;
         }
         else if (enemyType == 2)
@@ -56,7 +56,8 @@ public class Attack : AIBehaviour
                     clone.GetComponent<SpriteRenderer>().flipX = false;
                 }
                 clone.GetComponent<EnemyProjectileController>().AI = AI.gameObject;
-                clone.GetComponent<Rigidbody2D>().velocity = AI.GetCurrentTarget() * clone.GetComponent<EnemyProjectileController>().projectileSpeed;
+                Debug.Log(AI.GetCurrentTarget());
+                clone.GetComponent<Rigidbody2D>().velocity = AI.GetCurrentTargetWorldPos() * clone.GetComponent<EnemyProjectileController>().projectileSpeed;
             }
             if (attackTimer <= 0.0f) AI.NewTopState(new AttackIdle());
             attackTimer -= Time.deltaTime;

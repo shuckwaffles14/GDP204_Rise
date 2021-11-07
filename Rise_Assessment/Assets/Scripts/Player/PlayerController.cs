@@ -133,17 +133,16 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Ladder")
         {
+            rb2d.gravityScale = 0f;
             canAttack = false;
             if (Input.GetKey(KeyCode.W))
             {
                 rb2d.velocity = new Vector2(rb2d.velocity.x, climbSpeed);
-                rb2d.gravityScale = 0f;
                 animator.SetBool("Climbing", true);
             }
             else if (Input.GetKey(KeyCode.S))
             {
                 rb2d.velocity = new Vector2(rb2d.velocity.x, -1 * climbSpeed);
-                rb2d.gravityScale = 0f;
                 animator.SetBool("Climbing", true);
             }
         }
@@ -230,20 +229,6 @@ public class PlayerController : MonoBehaviour
         }
         else onGround = false;
     }
-
-    //private void Collisions()
-    //{
-    //    //Check for all collisions
-
-    //    // Ladders
-
-    //    // Enemies
-
-    //    // Doors
-
-
-    //    // Or do a collision func for collisions
-    //}
 
     public void DoDamage(float damage)
     {

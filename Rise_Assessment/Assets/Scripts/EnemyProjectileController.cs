@@ -31,11 +31,8 @@ public class EnemyProjectileController : MonoBehaviour
 
         if (collision.gameObject.tag == "Player")
         {
-            Debug.Log("Projectile damage: " + AI.GetComponent<AIController>().GetAttackDamage());
             collision.gameObject.GetComponent<PlayerController>().DoDamage(AI.GetComponent<AIController>().GetAttackDamage());
-            Debug.Log("Projectile knockback force: " + AI.GetComponent<AIController>().GetKnockbackForce() * 125);
-            collision.gameObject.GetComponent<PlayerController>().Knockback(AI.GetComponent<AIController>().GetPos(), AI.GetComponent<PlayerController>().GetKnockbackForce() * 125);
-            Debug.Log("Projectile hit AI");
+            collision.gameObject.GetComponent<PlayerController>().Knockback(AI.GetComponent<AIController>().GetPos(), AI.GetComponent<AIController>().GetKnockbackForce() * 125);
             Destroy(this.gameObject);
         }
     }

@@ -114,7 +114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AI: {fileID: 0}
-  projectileSpeed: 0.6
+  projectileSpeed: 5
 --- !u!50 &174064199275676230
 Rigidbody2D:
   serializedVersion: 4
@@ -130,7 +130,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
