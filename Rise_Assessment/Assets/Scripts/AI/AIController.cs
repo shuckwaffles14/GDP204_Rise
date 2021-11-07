@@ -181,9 +181,14 @@ public class AIController : MonoBehaviour
         return currentTarget;
     }
 
-    public Vector2 GetCurrentTargetWorldPos() // is only used by E2 when it is already attacking
+    public Vector2 GetPlayerPos() // is only used by E2 when it is already attacking
     {
-        return player.transform.position;
+        //Vector3 location = player.transform.parent.parent.InverseTransformPoint;
+        Vector3 tempLocation = player.transform.InverseTransformPoint(player.transform.position);
+        Vector2 location = new Vector2();
+        location.x = tempLocation.x;
+        location.y = tempLocation.y;
+        return location;
     }
 
     public float GetCheckpointSensitivity()

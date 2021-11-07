@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyProjectileController : MonoBehaviour
 {
-    private float countdown;
+    private GameObject player;
     
     public GameObject AI;
     public float projectileSpeed;
@@ -12,7 +12,8 @@ public class EnemyProjectileController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        countdown = 5.0f;
+        player = GameObject.FindGameObjectWithTag("Player");
+        GetComponent<Rigidbody2D>().velocity = player.transform.position * projectileSpeed;
     }
 
     // Update is called once per frame
