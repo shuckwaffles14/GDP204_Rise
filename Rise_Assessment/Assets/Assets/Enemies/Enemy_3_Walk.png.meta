@@ -3,17 +3,17 @@ guid: 6609e43cadadec848b30f1abc07a8524
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6805089560954987109
-    second: Enemy_1_-_Cog_-_Walk_0
+      213: 7165178219274076976
+    second: Enemy_3_Walk_0
   - first:
-      213: 1667765407673619920
-    second: Enemy_1_-_Cog_-_Walk_1
+      213: -5659662869031422193
+    second: Enemy_3_Walk_1
   - first:
-      213: 6958875787547938989
-    second: Enemy_1_-_Cog_-_Walk_2
+      213: -2249068141755022373
+    second: Enemy_3_Walk_2
   - first:
-      213: -8949751979415464738
-    second: Enemy_1_-_Cog_-_Walk_3
+      213: -8728659986038277713
+    second: Enemy_3_Walk_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -99,13 +99,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Enemy_1_-_Cog_-_Walk_0
+      name: Enemy_3_Walk_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 45
-        height: 100
+        width: 42
+        height: 45
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -113,20 +113,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 562e07996e8807e50800000000000000
-      internalID: 6805089560954987109
+      spriteID: 0338230b0a3df6360800000000000000
+      internalID: 7165178219274076976
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_1_-_Cog_-_Walk_1
+      name: Enemy_3_Walk_1
       rect:
         serializedVersion: 2
-        x: 45
+        x: 42
         y: 0
-        width: 45
-        height: 100
+        width: 42
+        height: 45
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -134,20 +134,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0d512155dc7152710800000000000000
-      internalID: 1667765407673619920
+      spriteID: f07f9e65b96d471b0800000000000000
+      internalID: -5659662869031422193
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_1_-_Cog_-_Walk_2
+      name: Enemy_3_Walk_2
       rect:
         serializedVersion: 2
-        x: 90
+        x: 84
         y: 0
-        width: 45
-        height: 100
+        width: 42
+        height: 45
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -155,20 +155,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: da09cd8b8a4e29060800000000000000
-      internalID: 6958875787547938989
+      spriteID: bd34b0fe074b9c0e0800000000000000
+      internalID: -2249068141755022373
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_1_-_Cog_-_Walk_3
+      name: Enemy_3_Walk_3
       rect:
         serializedVersion: 2
-        x: 135
+        x: 126
         y: 0
-        width: 45
-        height: 100
+        width: 42
+        height: 45
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -176,8 +176,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ed497171ef71cc380800000000000000
-      internalID: -8949751979415464738
+      spriteID: fa9b5073df19dd680800000000000000
+      internalID: -8728659986038277713
       vertices: []
       indices: 
       edges: []

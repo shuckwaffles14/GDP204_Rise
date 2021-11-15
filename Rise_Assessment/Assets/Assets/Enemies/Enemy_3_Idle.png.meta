@@ -3,29 +3,29 @@ guid: 3cada28c8b2167b4a85682c40b59df69
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6095821927602882588
-    second: Enemy_1_-_Cog_-_Idle_0
+      213: 2735936116407362364
+    second: Enemy_3_Idle_0
   - first:
-      213: 3593326070428758065
-    second: Enemy_1_-_Cog_-_Idle_1
+      213: -2483580834829738162
+    second: Enemy_3_Idle_1
   - first:
-      213: 3593782270950174702
-    second: Enemy_1_-_Cog_-_Idle_2
+      213: -4491769127473622012
+    second: Enemy_3_Idle_2
   - first:
-      213: 3890117696809611539
-    second: Enemy_1_-_Cog_-_Idle_3
+      213: 1747938530206327689
+    second: Enemy_3_Idle_3
   - first:
-      213: 8789362498829754500
-    second: Enemy_1_-_Cog_-_Idle_4
+      213: 2832715447165693825
+    second: Enemy_3_Idle_4
   - first:
-      213: -5836289361138902185
-    second: Enemy_1_-_Cog_-_Idle_5
+      213: 1486816925848612887
+    second: Enemy_3_Idle_5
   - first:
-      213: 7925314349617557478
-    second: Enemy_1_-_Cog_-_Idle_6
+      213: 742392994926082735
+    second: Enemy_3_Idle_6
   - first:
-      213: 8381323485070739361
-    second: Enemy_1_-_Cog_-_Idle_7
+      213: -8322854427470651848
+    second: Enemy_3_Idle_7
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -111,13 +111,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Enemy_1_-_Cog_-_Idle_0
+      name: Enemy_3_Idle_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 47.625
-        height: 100
+        width: 41
+        height: 65
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -125,20 +125,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c188ec00fb5b89450800000000000000
-      internalID: 6095821927602882588
+      spriteID: c336f9af66ff7f520800000000000000
+      internalID: 2735936116407362364
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_1_-_Cog_-_Idle_1
+      name: Enemy_3_Idle_1
       rect:
         serializedVersion: 2
-        x: 47
+        x: 41
         y: 0
-        width: 47.625
-        height: 100
+        width: 41
+        height: 65
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -146,20 +146,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1307e06d50f0ed130800000000000000
-      internalID: 3593326070428758065
+      spriteID: e4f5109a36c888dd0800000000000000
+      internalID: -2483580834829738162
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_1_-_Cog_-_Idle_2
+      name: Enemy_3_Idle_2
       rect:
         serializedVersion: 2
-        x: 94
+        x: 82
         y: 0
-        width: 47.625
-        height: 100
+        width: 41
+        height: 65
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -167,20 +167,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: eefe41c4fedafd130800000000000000
-      internalID: 3593782270950174702
+      spriteID: 4045ed7e6c70aa1c0800000000000000
+      internalID: -4491769127473622012
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_1_-_Cog_-_Idle_3
+      name: Enemy_3_Idle_3
       rect:
         serializedVersion: 2
-        x: 141
+        x: 123
         y: 0
-        width: 47.625
-        height: 100
+        width: 41
+        height: 65
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -188,20 +188,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3113ccc3f697cf530800000000000000
-      internalID: 3890117696809611539
+      spriteID: 983aa2e05dce14810800000000000000
+      internalID: 1747938530206327689
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_1_-_Cog_-_Idle_4
+      name: Enemy_3_Idle_4
       rect:
         serializedVersion: 2
-        x: 188
+        x: 164
         y: 0
-        width: 47.625
-        height: 100
+        width: 41
+        height: 65
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -209,20 +209,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 48023e8ef961af970800000000000000
-      internalID: 8789362498829754500
+      spriteID: 18fa21ad0b3df4720800000000000000
+      internalID: 2832715447165693825
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_1_-_Cog_-_Idle_5
+      name: Enemy_3_Idle_5
       rect:
         serializedVersion: 2
-        x: 235
+        x: 205
         y: 0
-        width: 47.625
-        height: 100
+        width: 41
+        height: 65
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -230,20 +230,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 75b9cee7fb5510fa0800000000000000
-      internalID: -5836289361138902185
+      spriteID: 710be37dd1c32a410800000000000000
+      internalID: 1486816925848612887
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_1_-_Cog_-_Idle_6
+      name: Enemy_3_Idle_6
       rect:
         serializedVersion: 2
-        x: 282
+        x: 246
         y: 0
-        width: 47.625
-        height: 100
+        width: 41
+        height: 65
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -251,20 +251,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6efa24e296f5cfd60800000000000000
-      internalID: 7925314349617557478
+      spriteID: faabe4ade728d4a00800000000000000
+      internalID: 742392994926082735
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_1_-_Cog_-_Idle_7
+      name: Enemy_3_Idle_7
       rect:
         serializedVersion: 2
-        x: 329
+        x: 287
         y: 0
-        width: 47.625
-        height: 100
+        width: 41
+        height: 65
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -272,8 +272,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1a7c743bd41705470800000000000000
-      internalID: 8381323485070739361
+      spriteID: 83e135d9ef74f7c80800000000000000
+      internalID: -8322854427470651848
       vertices: []
       indices: 
       edges: []
