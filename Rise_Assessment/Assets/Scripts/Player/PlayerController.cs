@@ -70,6 +70,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        transform.SetParent(null);
         t = transform;
         health = 100.0f;
         bc2d = GetComponent<BoxCollider2D>();
@@ -135,12 +136,13 @@ public class PlayerController : MonoBehaviour
         {
             rb2d.gravityScale = 0f;
             canAttack = false;
-            if (Input.GetKey(KeyCode.W))
+            float horizontalInput = Input.GetAxis("Horizontal");
+            if (Input.GetKey(KeyCode.W) || horizontalInput > 0)
             {
                 rb2d.velocity = new Vector2(rb2d.velocity.x, climbSpeed);
                 animator.SetBool("Climbing", true);
             }
-            else if (Input.GetKey(KeyCode.S))
+            else if (Input.GetKey(KeyCode.S) || horizontalInput < 0)
             {
                 rb2d.velocity = new Vector2(rb2d.velocity.x, -1 * climbSpeed);
                 animator.SetBool("Climbing", true);
@@ -162,7 +164,7 @@ public class PlayerController : MonoBehaviour
     {
         float x = Input.GetAxisRaw("Horizontal");
         float moveBy;
-        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.LeftShift))
+        if ((Input.GetKey(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.LeftShift)) || (Input.GetKey(KeyCode.Joystick1Button2) || Input.GetKeyDown(KeyCode.Joystick1Button2)))
         {
             moveBy = x * runSpeed;
             animator.SetFloat("Speed", 1.0f);
@@ -195,7 +197,8 @@ public class PlayerController : MonoBehaviour
         if (onGround)
         {
             //Debug.Log("On Ground");
-            if (Input.GetKeyDown(KeyCode.Space))
+            float verticalInput = Input.GetAxis("Vertical");
+            if (Input.GetKeyDown(KeyCode.Space) || verticalInput > 0 || Input.GetKeyDown(KeyCode.Joystick1Button1))
             {
                 rb2d.velocity = new Vector2(rb2d.velocity.x, jumpHeight);
                 onGround = false;
@@ -208,7 +211,7 @@ public class PlayerController : MonoBehaviour
     private void BetterJump()
     {
         if (rb2d.velocity.y < 0) rb2d.velocity += Vector2.up * Physics2D.gravity * (fallMultiplier - 1) * Time.deltaTime;
-        else if (rb2d.velocity.y > 0 && !Input.GetKey(KeyCode.Space)) rb2d.velocity += Vector2.up * Physics2D.gravity * (lowJumpMultiplier - 1) * Time.deltaTime;
+        else if (rb2d.velocity.y > 0 && (!Input.GetKey(KeyCode.Space) || !Input.GetKey(KeyCode.Joystick1Button1))) rb2d.velocity += Vector2.up * Physics2D.gravity * (lowJumpMultiplier - 1) * Time.deltaTime;
     }
 
     private void Camera()
@@ -274,7 +277,7 @@ public class PlayerController : MonoBehaviour
 
         /*if (attackCooldown < 0)*/
         attackCooldown -= Time.deltaTime;
-        if (Input.GetKey(KeyCode.T) && attackCooldown <= 0f)
+        if ((Input.GetKey(KeyCode.T) || Input.GetKey(KeyCode.Joystick1Button0)) && attackCooldown <= 0f)
         {
             GameObject clone;
 

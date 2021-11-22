@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyProjectileController : MonoBehaviour
-{
-    private GameObject player;
-    
+{    
     public GameObject AI;
     public float projectileSpeed;
 
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
-        GetComponent<Rigidbody2D>().velocity = player.transform.position * projectileSpeed;
+        transform.SetParent(null);
+        Vector2 target = AI.GetComponent<AIController>().GetCurrentTarget();
+        Vector2 AILocation = AI.transform.position;
+        if (target.x > AILocation.x) GetComponent<Rigidbody2D>().velocity = (target - AILocation).normalized * projectileSpeed;
+        if (target.x < AILocation.x) GetComponent<Rigidbody2D>().velocity = (target - AILocation).normalized * projectileSpeed; // *** NEED TO TEST THIS PART OF CODE, AI WOULD NOT LOOK LEFT IN TESTING
     }
 
     // Update is called once per frame
@@ -26,7 +27,7 @@ public class EnemyProjectileController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Collisions")
         {
-            GameObject.Destroy(this.gameObject);
+            Destroy(this.gameObject);
             Debug.Log("Projectile hit wall");
         }
 

@@ -56,7 +56,8 @@ public class Attack : AIBehaviour
                     clone.GetComponent<SpriteRenderer>().flipX = false;
                 }
                 clone.GetComponent<EnemyProjectileController>().AI = AI.gameObject;
-                //Debug.Log(AI.GetCurrentTarget());
+                Debug.Log(AI.GetCurrentTarget());
+                Debug.Log(AI.GetPlayerPos());
                 //clone.GetComponent<Rigidbody2D>().velocity = AI.GetPlayerPos() * clone.GetComponent<EnemyProjectileController>().projectileSpeed;
             }
             if (attackTimer <= 0.0f) AI.NewTopState(new AttackIdle());

@@ -59,6 +59,7 @@ public class AIController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        transform.SetParent(null);
         Debug.Log("Start of Start()");
         if (!useEditorVariables)
         {
