@@ -109,6 +109,7 @@ public class PlayerController : MonoBehaviour
         {
             if (!pauseObj.GetComponent<PauseMenu>().GetPauseStatus())
             {
+                Debug.Log(onGround);
                 invulnerability -= Time.deltaTime;
                 HealthCheck();
                 Move();
@@ -157,6 +158,14 @@ public class PlayerController : MonoBehaviour
             canAttack = true;
             rb2d.gravityScale = 1f;
             animator.SetBool("Climbing", true);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Platform" && transform.position.y > collision.transform.position.y)
+        {
+            onGround = true;
         }
     }
 
@@ -222,7 +231,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void CheckForGround()
+    public void CheckForGround()
     {
         Collider2D hit = Physics2D.OverlapCircle(groundCheckerObj.position, checkerRadius, groundLayer);
         if (hit != null)
@@ -345,5 +354,10 @@ public class PlayerController : MonoBehaviour
     public bool GetPlayerDead()
     {
         return playerDead;
+    }
+
+    public void SetOnGround(bool _onGround)
+    {
+        onGround = _onGround;
     }
 }
