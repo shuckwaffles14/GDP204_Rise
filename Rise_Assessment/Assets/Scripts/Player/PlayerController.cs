@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour
     static Vector2 targetLocation;
     private GameObject pauseObj;
     float invulnerability;
+    private float fireballDelay;
+    private bool attacking;
 
     public Slider healthBar;
     
@@ -82,7 +84,7 @@ public class PlayerController : MonoBehaviour
         facingRight = true;
         jumpHeight = 10f;
         onGround = false;
-        fallMultiplier = 2.5f;
+        fallMultiplier = 4f;
         lowJumpMultiplier = 2f;
         checkerRadius = 0.1f;
         animator = GetComponent<Animator>();
@@ -94,6 +96,7 @@ public class PlayerController : MonoBehaviour
         climbSpeed = 2f;
         healthBar = GameObject.FindWithTag("HealthBar").GetComponent<Slider>();
         healthBar.value = health;
+        fireballDelay = 0.4f;
 
         if (mainCamera)
         {
@@ -104,20 +107,16 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log("Player health = " + health);
         if (!playerDead)
         {
             if (!pauseObj.GetComponent<PauseMenu>().GetPauseStatus())
             {
-                //Debug.Log(onGround);
                 invulnerability -= Time.deltaTime;
                 HealthCheck();
                 Move();
                 CheckForGround();
                 Attack();
                 Jump();
-                BetterJump();
-                //Collisions();
                 Camera();
             }
         }
@@ -159,27 +158,14 @@ public class PlayerController : MonoBehaviour
             rb2d.gravityScale = 1f;
             animator.SetBool("Climbing", true);
         }
-
-        //if (collision.gameObject.tag == "Platform")
-        //{
-        //    bc2d.isTrigger = false;
-        //    GetComponent<CircleCollider2D>().isTrigger = false;
-        //}
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Platform" && transform.position.y > collision.transform.position.y)
         {
-            //Debug.Log("On Platform");
             onGround = true;
         }
-
-        //if (collision.gameObject.tag == "Platform" && transform.position.y < collision.transform.position.y)
-        //{
-        //    bc2d.isTrigger = true;
-        //    GetComponent<CircleCollider2D>().isTrigger = true;
-        //}
     }
 
     private void Move()
@@ -195,6 +181,10 @@ public class PlayerController : MonoBehaviour
         {
             moveBy = x * walkSpeed;
             animator.SetFloat("Speed", 0.5f);
+        }
+        if (attacking)
+        {
+            moveBy /= 50f;
         }
         rb2d.velocity = new Vector2(moveBy, rb2d.velocity.y);
 
@@ -218,20 +208,15 @@ public class PlayerController : MonoBehaviour
     {
         if (onGround)
         {
-            //Debug.Log("On Ground");
             float verticalInput = Input.GetAxis("Vertical");
             if (Input.GetKeyDown(KeyCode.Space) || verticalInput > 0 || Input.GetKeyDown(KeyCode.Joystick1Button1))
             {
                 rb2d.velocity = new Vector2(rb2d.velocity.x, jumpHeight);
                 onGround = false;
-                //Debug.Log("Jump");
                 animator.SetBool("Jumping", true);
             }
         }
-    }
 
-    private void BetterJump()
-    {
         if (rb2d.velocity.y < 0) rb2d.velocity += Vector2.up * Physics2D.gravity * (fallMultiplier - 1) * Time.deltaTime;
         else if (rb2d.velocity.y > 0 && (!Input.GetKey(KeyCode.Space) || !Input.GetKey(KeyCode.Joystick1Button1))) rb2d.velocity += Vector2.up * Physics2D.gravity * (lowJumpMultiplier - 1) * Time.deltaTime;
     }
@@ -264,15 +249,12 @@ public class PlayerController : MonoBehaviour
         {
             health -= damage;
             invulnerability = 0.25f;
-            //Debug.Log(damage + " done to player");
-            //Debug.Log("AI health = " + health);
         }
     }
 
     public void AddHealth(float healthRefil) //add or take health, use negative value for takign health (e.g. poison potion)
     {
         health += healthRefil;
-        //Debug.Log(health);
     }
 
     public void Knockback(Vector2 attackerPos, float attackForce)
@@ -298,37 +280,40 @@ public class PlayerController : MonoBehaviour
 
     void Attack()
     {
-        // Get target here
-
-        /*if (attackCooldown < 0)*/
         attackCooldown -= Time.deltaTime;
         if ((Input.GetKey(KeyCode.T) || Input.GetKey(KeyCode.Joystick1Button0)) && attackCooldown <= 0f)
         {
-            GameObject clone;
+            if (!attacking) animator.SetTrigger("Attacking 0");
+            attacking = true;
 
-            if (facingRight)
-            {
-                clone = Instantiate(fireball, rightOrbShooterObj);
-                clone.GetComponent<SpriteRenderer>().flipX = true;
-            }
-            else
-            {
-                clone = Instantiate(fireball, leftOrbShooterObj);
-                clone.GetComponent<SpriteRenderer>().flipX = false;
-            }
-            
-            GetTarget(clone.GetComponent<FireballController>().fireballRange);
-            clone.GetComponent<Rigidbody2D>().velocity = targetLocation * clone.GetComponent<FireballController>().fireballSpeed;
-            //Debug.DrawRay(orbShooterObj.position, targetLocation, Color.yellow, 2f);
-            Destroy(clone, 2.5f);
-            //Debug.Log("Fireball!");
-
-            animator.SetBool("Attacking", true);
-            attackCooldown = 0.19f;
+            attackCooldown = 0.65f;
         }
-        if (attackCooldown <= 0.0f)
+
+        if (attacking)
         {
-            animator.SetBool("Attacking", false);
+            fireballDelay -= Time.deltaTime;
+            if (fireballDelay <= 0.0f) //time to shoot
+            {
+                GameObject clone;
+
+                if (facingRight)
+                {
+                    clone = Instantiate(fireball, rightOrbShooterObj);
+                    clone.GetComponent<SpriteRenderer>().flipX = true;
+                }
+                else
+                {
+                    clone = Instantiate(fireball, leftOrbShooterObj);
+                    clone.GetComponent<SpriteRenderer>().flipX = false;
+                }
+
+                GetTarget(clone.GetComponent<FireballController>().fireballRange);
+                clone.GetComponent<Rigidbody2D>().velocity = targetLocation * clone.GetComponent<FireballController>().fireballSpeed;
+                Destroy(clone, 2.5f);
+
+                attacking = false;
+                fireballDelay = 0.4f;
+            }
         }
     }
 

@@ -14,7 +14,7 @@ public class EnemyProjectileController : MonoBehaviour
         Vector2 target = AI.GetComponent<AIController>().GetCurrentTarget();
         Vector2 AILocation = AI.transform.position;
         if (target.x > AILocation.x) GetComponent<Rigidbody2D>().velocity = (target - AILocation).normalized * projectileSpeed;
-        if (target.x < AILocation.x) GetComponent<Rigidbody2D>().velocity = (target - AILocation).normalized * projectileSpeed; // *** NEED TO TEST THIS PART OF CODE, AI WOULD NOT LOOK LEFT IN TESTING
+        if (target.x < AILocation.x) GetComponent<Rigidbody2D>().velocity = (target - AILocation).normalized * projectileSpeed;
     }
 
     // Update is called once per frame

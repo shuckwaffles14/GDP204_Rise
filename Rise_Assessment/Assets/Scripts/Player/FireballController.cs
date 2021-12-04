@@ -28,19 +28,29 @@ public class FireballController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.gameObject.tag == "Player")
+        {
+            Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), collision.gameObject.GetComponent<BoxCollider2D>());
+        }
+
         if (collision.gameObject.tag == "Collisions")
         {
             GameObject.Destroy(this.gameObject);
-            Debug.Log("Fireball hit wall");
+            //Debug.Log("Fireball hit wall");
         }
 
         if (collision.gameObject.tag == "Enemy")
         {
-            Debug.Log("Fireball damage: " + player.GetComponent<PlayerController>().GetFireballDamage());
+            //Debug.Log("Fireball damage: " + player.GetComponent<PlayerController>().GetFireballDamage());
             collision.gameObject.GetComponent<AIController>().DoDamage(player.GetComponent<PlayerController>().GetFireballDamage());
-            Debug.Log("Fireball knockback force: " + player.GetComponent<PlayerController>().GetKnockbackForce() * 125);
+            //Debug.Log("Fireball knockback force: " + player.GetComponent<PlayerController>().GetKnockbackForce() * 125);
             collision.gameObject.GetComponent<AIController>().Knockback(player.GetComponent<PlayerController>().GetPos(), player.GetComponent<PlayerController>().GetKnockbackForce() * 125);
-            Debug.Log("Fireball hit AI");
+            //Debug.Log("Fireball hit AI");
+            Destroy(this.gameObject);
+        }
+
+        if (collision.gameObject.tag == "Projectile")
+        {
             Destroy(this.gameObject);
         }
     }
