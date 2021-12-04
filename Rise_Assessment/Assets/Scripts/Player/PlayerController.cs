@@ -209,7 +209,7 @@ public class PlayerController : MonoBehaviour
         if (onGround)
         {
             float verticalInput = Input.GetAxis("Vertical");
-            if (Input.GetKeyDown(KeyCode.Space) || verticalInput > 0 || Input.GetKeyDown(KeyCode.Joystick1Button1))
+            if (Input.GetKeyDown(KeyCode.Space) || verticalInput > 0 || Input.GetKeyDown(KeyCode.Joystick1Button0))
             {
                 rb2d.velocity = new Vector2(rb2d.velocity.x, jumpHeight);
                 onGround = false;
@@ -218,7 +218,7 @@ public class PlayerController : MonoBehaviour
         }
 
         if (rb2d.velocity.y < 0) rb2d.velocity += Vector2.up * Physics2D.gravity * (fallMultiplier - 1) * Time.deltaTime;
-        else if (rb2d.velocity.y > 0 && (!Input.GetKey(KeyCode.Space) || !Input.GetKey(KeyCode.Joystick1Button1))) rb2d.velocity += Vector2.up * Physics2D.gravity * (lowJumpMultiplier - 1) * Time.deltaTime;
+        else if (rb2d.velocity.y > 0 && (!Input.GetKey(KeyCode.Space) || !Input.GetKey(KeyCode.Joystick1Button0))) rb2d.velocity += Vector2.up * Physics2D.gravity * (lowJumpMultiplier - 1) * Time.deltaTime;
     }
 
     private void Camera()
@@ -281,7 +281,7 @@ public class PlayerController : MonoBehaviour
     void Attack()
     {
         attackCooldown -= Time.deltaTime;
-        if ((Input.GetKey(KeyCode.T) || Input.GetKey(KeyCode.Joystick1Button0)) && attackCooldown <= 0f)
+        if ((Input.GetKey(KeyCode.T) || Input.GetKey(KeyCode.Joystick1Button1)) && attackCooldown <= 0f)
         {
             if (!attacking) animator.SetTrigger("Attacking 0");
             attacking = true;
