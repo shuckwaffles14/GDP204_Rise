@@ -165,6 +165,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Platform" && transform.position.y > collision.transform.position.y)
         {
+            Debug.Log("On Platform");
             onGround = true;
         }
     }
