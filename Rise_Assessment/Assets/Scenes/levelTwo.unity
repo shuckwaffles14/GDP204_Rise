@@ -776,7 +776,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -424.38135, y: 22.856232}
+  m_AnchoredPosition: {x: -424.38138, y: 22.856232}
   m_SizeDelta: {x: -1055.5986, y: -426.52942}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &92139634
@@ -2162,6 +2162,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenuUI: {fileID: 786856838}
+  optionsUI: {fileID: 1739334107}
+  exitUI: {fileID: 650110016}
 --- !u!114 &623048557
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2358,7 +2360,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -436.28125, y: 100.187225}
+  m_AnchoredPosition: {x: -436.28128, y: 100.187225}
   m_SizeDelta: {x: -861.9696, y: -399.75095}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &651430428
