@@ -80,7 +80,7 @@ public class PlayerController : MonoBehaviour
         walkSpeed = 2.5f;
         runSpeed = 5f;
         facingRight = true;
-        jumpHeight = 7.5f;
+        jumpHeight = 10f;
         onGround = false;
         fallMultiplier = 2.5f;
         lowJumpMultiplier = 2f;
@@ -109,7 +109,7 @@ public class PlayerController : MonoBehaviour
         {
             if (!pauseObj.GetComponent<PauseMenu>().GetPauseStatus())
             {
-                Debug.Log(onGround);
+                //Debug.Log(onGround);
                 invulnerability -= Time.deltaTime;
                 HealthCheck();
                 Move();
@@ -159,15 +159,27 @@ public class PlayerController : MonoBehaviour
             rb2d.gravityScale = 1f;
             animator.SetBool("Climbing", true);
         }
+
+        //if (collision.gameObject.tag == "Platform")
+        //{
+        //    bc2d.isTrigger = false;
+        //    GetComponent<CircleCollider2D>().isTrigger = false;
+        //}
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Platform" && transform.position.y > collision.transform.position.y)
         {
-            Debug.Log("On Platform");
+            //Debug.Log("On Platform");
             onGround = true;
         }
+
+        //if (collision.gameObject.tag == "Platform" && transform.position.y < collision.transform.position.y)
+        //{
+        //    bc2d.isTrigger = true;
+        //    GetComponent<CircleCollider2D>().isTrigger = true;
+        //}
     }
 
     private void Move()
@@ -237,8 +249,11 @@ public class PlayerController : MonoBehaviour
         Collider2D hit = Physics2D.OverlapCircle(groundCheckerObj.position, checkerRadius, groundLayer);
         if (hit != null)
         {
-            onGround = true;
-            animator.SetBool("Jumping", false);
+            if (hit.tag == "Collisions" || hit.tag == "Platform")
+            {
+                onGround = true;
+                animator.SetBool("Jumping", false);
+            }
         }
         else onGround = false;
     }
@@ -249,8 +264,8 @@ public class PlayerController : MonoBehaviour
         {
             health -= damage;
             invulnerability = 0.25f;
-            Debug.Log(damage + " done to player");
-            Debug.Log("AI health = " + health);
+            //Debug.Log(damage + " done to player");
+            //Debug.Log("AI health = " + health);
         }
     }
 

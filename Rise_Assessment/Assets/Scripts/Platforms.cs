@@ -13,6 +13,7 @@ public class Platforms : MonoBehaviour
 
 
     private Vector3 nextPos;
+    private Vector2 velocity;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,15 +23,15 @@ public class Platforms : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Platform update");
+        //Debug.Log("Platform update");
         if (transform.position == pos1.position)
         {
-            Debug.Log("Move to pos 2");
+            //Debug.Log("Move to pos 2");
             nextPos = pos2.position;
         }
         if (transform.position == pos2.position)
         {
-            Debug.Log("Move to pos 1");
+            //Debug.Log("Move to pos 1");
             nextPos = pos1.position;
         }
 
@@ -47,13 +48,14 @@ public class Platforms : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             var groundCheckerTransform = collision.transform.GetChild(0);
-            if (transform.position.y > groundCheckerTransform.transform.position.y)
+            if (transform.position.y > groundCheckerTransform.transform.position.y) // if over the player
             {
+                Debug.Log("Entering collision");
                 BoxCollider2D thisbc2d = GetComponent<BoxCollider2D>();
-                Physics2D.IgnoreCollision(thisbc2d, collision.gameObject.GetComponent<BoxCollider2D>());
+                thisbc2d.isTrigger = true;
             }
             
-            if (transform.position.y < collision.transform.position.y)
+            if (transform.position.y < collision.transform.position.y) //if under the player
             {
                 collision.gameObject.GetComponent<PlayerController>().CheckForGround();
                 //collision.gameObject.GetComponent<PlayerController>().SetOnGround(true);
@@ -68,15 +70,26 @@ public class Platforms : MonoBehaviour
             var groundCheckerTransform = collision.transform.GetChild(0);
             if (transform.position.y > groundCheckerTransform.transform.position.y)
             {
-                BoxCollider2D thisbc2d = GetComponent<BoxCollider2D>();
-                Physics2D.IgnoreCollision(thisbc2d, collision.gameObject.GetComponent<BoxCollider2D>());
+                Debug.Log("Ongoing collision");
+                //BoxCollider2D thisbc2d = GetComponent<BoxCollider2D>();
+                //Physics2D.IgnoreCollision(thisbc2d, collision.gameObject.GetComponent<BoxCollider2D>());
             }
             
             if (transform.position.y < collision.transform.position.y)
             {
                 collision.gameObject.GetComponent<PlayerController>().CheckForGround();
-                //collision.gameObject.GetComponent<PlayerController>().SetOnGround(true);
+                collision.transform.position = Vector3.MoveTowards(collision.transform.position, nextPos, speed * Time.deltaTime);
             }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "Player")
+        {
+            Debug.Log("Exit Collision");
+            BoxCollider2D thisbc2d = GetComponent<BoxCollider2D>();
+            thisbc2d.isTrigger = false;
         }
     }
 }

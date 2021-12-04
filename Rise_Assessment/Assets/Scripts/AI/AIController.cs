@@ -60,7 +60,7 @@ public class AIController : MonoBehaviour
     void Start()
     {
         transform.SetParent(null);
-        Debug.Log("Start of Start()");
+        //Debug.Log("Start of Start()");
         if (!useEditorVariables)
         {
             movementSpeed = 2.5f;
@@ -78,7 +78,7 @@ public class AIController : MonoBehaviour
         if (enemyType == 1) attackCollider.enabled = false;
         pauseObj = GameObject.FindGameObjectWithTag("Pause");
         invulnerability = 0f;
-        Debug.Log("End of Start()");
+        //Debug.Log("End of Start()");
         distanceToGround = 100f;
         player = GameObject.FindGameObjectWithTag("Player");
     }

@@ -25,10 +25,10 @@ public class EnemyProjectileController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Collisions")
+        if (collision.gameObject.tag == "Collisions" || collision.gameObject.tag == "Projectile")
         {
             Destroy(this.gameObject);
-            Debug.Log("Projectile hit wall");
+            //Debug.Log("Projectile hit wall");
         }
 
         if (collision.gameObject.tag == "Player")
